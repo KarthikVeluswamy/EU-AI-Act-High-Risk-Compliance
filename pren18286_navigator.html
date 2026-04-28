@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>prEN 18286:2025 — Essential Requirements Guidance</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;font-family:'DM Sans',sans-serif;background:#F4F6FB;color:#1a1a2e;overflow:hidden}
+
+/* ── LAYOUT ── */
+.shell{display:flex;flex-direction:column;height:100vh}
+.nav-th{background:#003399;padding:.8rem 1.4rem;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.nav-th h2{font-size:.85rem;font-weight:600;color:#fff;letter-spacing:.01em}
+.nav-back{background:rgba(255,255,255,.14);color:#FFCC00;border:1px solid rgba(255,204,0,.4);padding:5px 13px;border-radius:20px;cursor:pointer;font-size:11px;font-weight:700;letter-spacing:.02em}
+.nav-back:hover{background:rgba(255,204,0,.16)}
+.body{display:flex;flex:1;min-height:0}
+
+/* ── SVG MAP SIDEBAR ── */
+.map-side{width:33%;flex-shrink:0;background:#fff;border-right:1px solid #E0E4EF;display:flex;flex-direction:column;overflow:hidden}
+.map-header{padding:.75rem .9rem .5rem;border-bottom:1px solid #F0F2F8;flex-shrink:0}
+.map-header h3{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:#8890B0}
+.map-header p{font-size:9px;color:#AAB0C8;margin-top:2px;line-height:1.4}
+.svg-wrap{flex:1;overflow-y:auto;overflow-x:hidden;position:relative}
+#clauseSvg{width:100%;display:block}
+
+/* ── CONTENT AREA ── */
+.content-area{flex:1;display:flex;flex-direction:column;min-width:0;min-height:0}
+.clause-scroll{flex:1;padding:1.1rem;overflow-y:auto;background:#F4F6FB}
+
+/* CARDS */
+.cc-card{background:#fff;border-radius:11px;border:1px solid #E0E4EF;padding:1.25rem;margin-bottom:.7rem;box-shadow:0 1px 4px rgba(0,0,51,.04)}
+.cc-hdr{display:flex;align-items:flex-start;gap:10px;margin-bottom:.7rem}
+.cc-badge{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;border:2px solid transparent}
+.cc-numtag{font-size:9px;font-weight:700;color:#003399;letter-spacing:.05em;text-transform:uppercase;margin-bottom:2px}
+.cc-title{font-family:'DM Serif Display',serif;font-size:.95rem;font-weight:400;color:#1a1a2e;line-height:1.3}
+.cc-art-row{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:.7rem}
+.cc-art{display:inline-block;background:#003399;color:#FFCC00;font-size:9px;padding:2px 9px;border-radius:10px;font-weight:700;letter-spacing:.02em}
+.cc-body{font-size:.8rem;line-height:1.75;color:#4A5068;margin-bottom:.85rem}
+.slbl{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.45rem;color:#8890B0}
+.req-list{display:flex;flex-direction:column;gap:5px;margin-bottom:.85rem}
+.req-item{display:flex;align-items:flex-start;gap:7px;padding:7px 10px;background:#F4F6FB;border-radius:7px;font-size:.77rem;line-height:1.5;color:#1a1a2e;border:1px solid #E8ECF5}
+.req-dot{width:6px;height:6px;border-radius:50%;background:#3a7bd5;flex-shrink:0;margin-top:5px}
+
+/* REFERENCE PANELS */
+.ref-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:.7rem}
+.ref-panel{background:#F4F6FB;border-radius:8px;border:1px solid #E0E4EF;padding:9px 11px}
+.ref-panel.full{grid-column:1/-1}
+.rpt{font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:#8890B0;margin-bottom:6px;display:flex;align-items:center;gap:4px}
+.rpt svg{width:10px;height:10px;flex-shrink:0}
+.ref-tag{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:20px;font-size:10px;font-weight:600;cursor:pointer;margin:2px;transition:all .15s;border:1px solid transparent;font-family:'DM Sans',sans-serif}
+.ref-tag.internal{background:#E6F1FB;color:#0C447C;border-color:#85B7EB}
+.ref-tag.internal:hover{background:#003399;color:#fff;border-color:#003399}
+.ref-tag.aiact{background:#EDE9FE;color:#5B21B6;border-color:#C4B5FD;cursor:default}
+.ref-tag.iso{background:#DCFCE7;color:#14532D;border-color:#86EFAC;cursor:default}
+.ref-tag.ext{background:#FEF3C7;color:#92400E;border-color:#FCD34D;cursor:default}
+.ref-empty{font-size:10px;color:#9CA3AF;font-style:italic}
+
+
+/* FOOTER */
+.foot{padding:.85rem 1.4rem;text-align:center;background:#fff;border-top:1px solid #E0E4EF;flex-shrink:0}
+.foot p{font-size:.7rem;color:#8890B0;margin-bottom:.5rem}
+.crow{display:flex;align-items:center;justify-content:center;gap:7px;flex-wrap:wrap}
+.cl{display:flex;align-items:center;gap:5px;padding:4px 10px;border:1px solid #D8DBE8;border-radius:7px;text-decoration:none;color:#1a1a2e;font-size:.75rem;background:#F4F6FB;transition:all .15s}
+.cl:hover{border-color:#3a7bd5;color:#3a7bd5;background:#E6F1FB}
+.ci{width:15px;height:15px;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:9px;flex-shrink:0;font-weight:700}
+.li{background:#0A66C2;color:#fff}.ss{background:#FF6719;color:#fff}.ml{background:#3a7bd5;color:#fff}
+</style>
+</head>
+<body>
+<div class="shell">
+  <div class="nav-th">
+    <h2>prEN 18286:2025 — Essential Requirements Guidance</h2>
+    <button class="nav-back" onclick="history.back()">← Back to compliance journey</button>
+  </div>
+  <div class="body">
+    <div class="map-side">
+      <div class="map-header">
+        <h3>Clause navigation map</h3>
+        <p>Click any node to navigate · Connections highlight when selected</p>
+      </div>
+      <div class="svg-wrap">
+        <svg id="clauseSvg" xmlns="http://www.w3.org/2000/svg"></svg>
+      </div>
+    </div>
+    <div class="content-area">
+      <div class="clause-scroll" id="clauseContent"></div>
+
+    </div>
+  </div>
+  <div class="foot">
+    <p>This tool is for informational purposes only. Always consult qualified legal counsel for interpretations of the EU AI Act text.</p>
+    <div class="crow">
+      <a class="cl" href="https://linkedin.com/in/placeholder" target="_blank"><div class="ci li">in</div><span>LinkedIn</span></a>
+      <a class="cl" href="https://substack.com/placeholder" target="_blank"><div class="ci ss">S</div><span>Substack</span></a>
+      <a class="cl" href="mailto:your@email.com"><div class="ci ml">@</div><span>your@email.com</span></a>
+    </div>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════════════════════════════
+// COMPLETE CLAUSE STRUCTURE — all clauses & sub-clauses
+// ══════════════════════════════════════════════════════════════════
+const CHAPTERS = [
+  { id:'4',  num:'4',  label:'Quality Management System', short:'QMS',
+    color:'#1D4ED8', bg:'#DBEAFE', border:'#3B82F6',
+    art:'Art. 17',
+    body:'Establishes, documents, implements and maintains a QMS covering the full AI system lifecycle. The QMS is the governance container that all other compliance instruments plug into.',
+    reqs:['4.1 General — establish the QMS, identify internal and external issues relevant to purpose','4.2 Understanding interested parties — deployers, affected persons, competent authorities, notified bodies','4.3 Scope — determine QMS scope considering context, interested parties, and AI system lifecycle','4.4 Regulatory compliance strategy — identify all Art. 9–15 essential requirements and map compliance approaches','4.5 Documented information — control QMS documentation accessible to notified bodies and authorities'],
+    subs:[
+      { id:'4.1', num:'4.1', label:'General', art:'Art. 17',
+        body:'The provider shall establish, document, implement and maintain a QMS and continually improve its effectiveness.',
+        reqs:['Establish and implement a QMS covering the full AI system lifecycle','Continually improve QMS effectiveness based on monitoring and audit results','Ensure QMS covers all AI systems within the defined scope'] },
+      { id:'4.2', num:'4.2', label:'Understanding interested parties', art:'Art. 17',
+        body:'The provider shall determine relevant interested parties and their requirements as they relate to the QMS and AI system lifecycle.',
+        reqs:['Identify interested parties: deployers, affected persons, competent authorities, notified bodies','Determine relevant requirements of each interested party','Monitor and review information about interested parties and their requirements'] },
+      { id:'4.3', num:'4.3', label:'Scope of the QMS', art:'Art. 17',
+        body:'The provider shall determine the boundaries and applicability of the QMS to establish its scope.',
+        reqs:['Determine scope considering internal and external issues identified in 4.1','Consider requirements of interested parties identified in 4.2','Consider AI systems, products, and services within the scope','Document and maintain the scope as documented information'] },
+      { id:'4.4', num:'4.4', label:'Regulatory compliance strategy', art:'Art. 17(1)(a)(e)',
+        body:'Establish a documented strategy identifying all applicable regulatory requirements and mapping compliance approaches, including harmonised standards or common specifications.',
+        reqs:['4.4.1 — Identify all applicable regulatory requirements for each AI system lifecycle phase','4.4.2 — Identify all essential requirements (Art. 9–15) applicable to each AI system','4.4.3 — Select compliance approaches: harmonised standards, common specifications, or other solutions','4.4.4 — Establish a regulatory compliance strategy and keep it current','Document strategy as part of QMS documented information (4.5)'] },
+      { id:'4.5', num:'4.5', label:'Documented information', art:'Art. 11(1), Art. 17(1)(k)',
+        body:'All QMS documentation shall be controlled, version-managed, and kept available for competent authorities and notified bodies throughout the required retention periods.',
+        reqs:['4.5.1 — Maintain QMS documentation covering scope, policy, objectives, and process descriptions','4.5.2 — Maintain operational documents supporting process execution','4.5.3 — Ensure changes to documented information are reviewed and approved','4.5.4 — Control documented information for suitability, protection, storage, retention, and access','Keep available to auditors, notified bodies, and competent authorities for required retention periods'] }
+    ]
+  },
+  { id:'5',  num:'5',  label:'Management Responsibility', short:'Leadership',
+    color:'#5B21B6', bg:'#EDE9FE', border:'#7C3AED',
+    art:'Art. 17(1)(m)',
+    body:'Top management must demonstrate leadership and commitment to the QMS, establish an AI quality policy, and ensure appropriate roles, responsibilities and authorities are defined and communicated.',
+    reqs:['5.1 Leadership and commitment — accountability for QMS effectiveness','5.2 AI quality policy — establish, communicate, and maintain policy aligned to strategic direction','5.3 Roles, responsibilities and authorities — assign and communicate roles for AI system quality'],
+    subs:[
+      { id:'5.1', num:'5.1', label:'Leadership and commitment', art:'Art. 17(1)(m)',
+        body:'Top management shall demonstrate leadership and commitment with respect to the QMS.',
+        reqs:['Take accountability for the effectiveness of the QMS','Ensure the QMS achieves its intended results','Direct and support personnel to contribute to QMS effectiveness','Promote regulatory compliance and continual improvement'] },
+      { id:'5.2', num:'5.2', label:'AI quality policy', art:'Art. 17(1)(m)',
+        body:'Top management shall establish, implement and maintain a quality policy that is appropriate to the purpose and context of the organisation.',
+        reqs:['Establish a quality policy appropriate to the regulatory context','Include a commitment to satisfy applicable regulatory requirements','Include a commitment to continual improvement of the QMS','Communicate and make available to relevant interested parties'] },
+      { id:'5.3', num:'5.3', label:'Roles, responsibilities and authorities', art:'Art. 17(1)(m)',
+        body:'Top management shall ensure responsibilities and authorities for relevant roles are assigned, communicated and understood.',
+        reqs:['5.3.1 — Assign roles ensuring QMS conforms to requirements','5.3.2 — Designate a management representative responsible for QMS','5.3.3 — Define roles for each AI system lifecycle phase','Ensure roles include competences necessary to understand regulatory requirements'] }
+    ]
+  },
+  { id:'6',  num:'6',  label:'Planning', short:'Planning',
+    color:'#92400E', bg:'#FEF3C7', border:'#D97706',
+    art:'Art. 17(1)',
+    body:'Plan actions to address risks and opportunities, establish quality objectives, and determine the processes necessary to achieve them across the AI system lifecycle.',
+    reqs:['6.1 Actions to address risks and opportunities — QMS-level risk planning','6.2 Quality objectives and planning — measurable, monitored objectives aligned to quality policy'],
+    subs:[
+      { id:'6.1', num:'6.1', label:'Actions to address risks and opportunities', art:'Art. 17(1)',
+        body:'When planning for the QMS, the provider shall consider issues from 4.1 and requirements from 4.2, determine risks and opportunities, and plan actions to address them.',
+        reqs:['Determine QMS-level risks and opportunities that could affect intended results','Plan actions to address identified risks and opportunities','Integrate and implement actions into QMS processes','Evaluate effectiveness of implemented actions'] },
+      { id:'6.2', num:'6.2', label:'Quality objectives and planning', art:'Art. 17(1)',
+        body:'Establish quality objectives at relevant functions, levels and processes needed for the QMS.',
+        reqs:['6.2.1 — Establish measurable quality objectives consistent with the quality policy','6.2.2 — Plan how to achieve objectives: resources, responsibilities, timelines, completion criteria, evaluation methods','Quality objectives shall be measurable, take into account applicable regulatory requirements','Maintain documented information on quality objectives'] }
+    ]
+  },
+  { id:'7',  num:'7',  label:'Support', short:'Support',
+    color:'#14532D', bg:'#DCFCE7', border:'#16A34A',
+    art:'Art. 17(1)(j),(l)',
+    body:'Determine and provide the resources, competence, infrastructure, and communication mechanisms necessary to establish, implement, maintain and continually improve the QMS.',
+    reqs:['7.1 Resources — personnel, infrastructure, work environment, organisational knowledge','7.2 Competence — determine, ensure, and document competences for all relevant roles','7.3 Communication — establish internal and external communication processes'],
+    subs:[
+      { id:'7.1', num:'7.1', label:'Resources', art:'Art. 17(1)(l)',
+        body:'The provider shall determine and provide the resources needed for the establishment, implementation, maintenance and continual improvement of the QMS.',
+        reqs:['Determine and provide necessary human resources and their competences','Provide adequate organisational infrastructure and work environment','Provide time resources for AI system lifecycle activities','Ensure measures for security of supply where relevant (see 9.2)'] },
+      { id:'7.2', num:'7.2', label:'Competence', art:'Art. 17(1)(j)',
+        body:'The provider shall determine necessary competences of personnel doing work that affects quality objectives and AI system quality.',
+        reqs:['Determine necessary competences for all roles affecting quality','Ensure personnel are competent based on education, training, or experience','Document processes for establishing, validating, training, supervising, and maintaining competences','Ensure personnel are familiar with applicable regulatory requirements and intended purpose'] },
+      { id:'7.3', num:'7.3', label:'Communication', art:'Art. 17(1)(j)',
+        body:'The provider shall establish and implement documented communication processes for internal and external communication relevant to the QMS.',
+        reqs:['Establish communication processes: what, when, with whom, how, who','Ensure relevant personnel are familiar with their duties related to quality management','Ensure communication covers regulatory requirements and quality objectives'] }
+    ]
+  },
+  { id:'8',  num:'8',  label:'Product Realization', short:'Operations',
+    color:'#9F1239', bg:'#FFE4E6', border:'#E11D48',
+    art:'Art. 9–15, 17(1)(b)–(g)',
+    body:'Core operational section covering the full AI system lifecycle: inception, design, development, verification, validation, deployment, and post-deployment activities.',
+    reqs:['8.1 Risk management — system-artefact level risk process per prEN 18228','8.2 AI system lifecycle — plan and control each lifecycle stage','8.3 Inception, design and development — requirements, architecture, development controls','8.4 Verification and validation — test procedures, acceptance criteria, performance metrics','8.5 Data governance — full data lifecycle management per prEN 18284','8.6 Deployment — deployment conditions, instructions for use, handover to operation','8.7 Technical documentation — Annex IV documentation and instructions for use'],
+    subs:[
+      { id:'8.1', num:'8.1', label:'Risk management system', art:'Art. 9 + prEN 18228',
+        body:'Plan, implement, and maintain a risk management system covering the full AI system lifecycle. Operates at system-artefact level — distinct from the QMS-level risk process in clause 6.',
+        reqs:['8.1.1 — Risk management planning: scope, criteria, methodology','8.1.2 — Risk identification: hazards from intended use and reasonably foreseeable misuse','8.1.3 — Risk estimation and evaluation: probability, severity, and acceptable risk thresholds','8.1.4 — Risk control: implement and verify risk control measures','8.1.5 — Residual risk evaluation: verify that residual risks are acceptable','Conduct risk management review at each lifecycle stage and when changes occur'] },
+      { id:'8.2', num:'8.2', label:'AI system lifecycle planning', art:'Art. 17(1)(b)',
+        body:'The provider shall plan, implement and control the AI system lifecycle processes needed to produce the AI system.',
+        reqs:['Determine lifecycle stages applicable to each AI system','Establish processes, responsibilities, and controls for each stage','Plan verification and validation activities','Document lifecycle plans and maintain documented information','Control planned changes and review consequences of unintended changes'] },
+      { id:'8.3', num:'8.3', label:'Inception, design and development', art:'Art. 17(1)(b)',
+        body:'Covers AI system requirements determination, architecture design, and development controls. AI system requirements must translate regulatory requirements into explicit, testable features.',
+        reqs:['8.3.1 Inception — determine intended purpose, consult interested parties on fundamental rights (Annex A)','8.3.2 Design and development — establish design controls','8.3.2.1 AI system requirements — accuracy, robustness, cybersecurity, transparency, oversight, data and data governance','8.3.2.2 Architecture and design — determine AI system architecture','8.3.3 Verification — verify at each design and development stage that requirements are met'] },
+      { id:'8.4', num:'8.4', label:'Verification and validation', art:'Art. 17(1)(c)(d)',
+        body:'Establish and execute verification and validation activities for each AI system. Verification checks that requirements are met; validation confirms fitness for intended purpose.',
+        reqs:['8.4.1 AI system verification — test procedures and acceptance criteria, reference prEN 18229-2','8.4.2 AI system validation — confirm the AI system meets its intended purpose','Document V&V results as part of technical documentation','Ensure testing covers accuracy, robustness, cybersecurity, and performance metrics','Retain all V&V records as part of Annex IV technical documentation'] },
+      { id:'8.5', num:'8.5', label:'Data governance', art:'Art. 10 + prEN 18284',
+        body:'Implement data management processes covering the full data lifecycle from acquisition through decommission. Applies to training, validation, and test datasets.',
+        reqs:['Establish data acquisition and collection processes with documented provenance','Implement data quality controls: relevance, representativeness, completeness, and correctness','Apply bias identification and mitigation measures per prEN 18283','Document data governance procedures as part of technical documentation','8.5.1 — Data acquisition through decommission lifecycle coverage','8.5.2 — Data quality assessment and validation'] },
+      { id:'8.6', num:'8.6', label:'Deployment', art:'Art. 17(1)(f)',
+        body:'Control the deployment of AI systems, ensuring conditions for deployment are established and documented, and that deployers receive adequate instructions for use.',
+        reqs:['Establish and document conditions for deployment','Plan and control handover activities to operation','Prepare and provide instructions for use to deployers','Ensure deployment conditions align with the intended purpose and risk management outcomes'] },
+      { id:'8.7', num:'8.7', label:'Technical documentation', art:'Art. 11, Art. 13 + Annex IV',
+        body:'Prepare and maintain technical documentation before market placement. Must follow Annex IV format and be available to market surveillance authorities for 10 years.',
+        reqs:['8.7.1 Technical documentation — Annex IV format: general description, design, development, datasets, risk management, oversight, accuracy, DoC','8.7.2 Instructions for use — enable deployers to implement correctly: capabilities, limitations, conditions of use, human oversight requirements, instructions for operation and monitoring','Keep documentation current throughout the AI system lifecycle','Retain for 10 years after market placement or last system in service'] }
+    ]
+  },
+  { id:'9',  num:'9',  label:'Operation and Control', short:'Operations',
+    color:'#713F12', bg:'#FEF9C3', border:'#CA8A04',
+    art:'Art. 12, 17(1)(h),(i),(l)',
+    body:'Covers post-market monitoring, supplier controls, logging, record-keeping, and serious incident reporting. Ongoing operational obligations throughout the AI system\'s active lifecycle.',
+    reqs:['9.1 General — overall operational framework','9.2 Supplier controls — evaluate, select, monitor external suppliers','9.3 Quality objectives review — review progress against objectives','9.4 Post-market monitoring and logging — systematic monitoring and automatic log capture','9.5 Serious incident reporting — 2/10/15-day timelines to competent authorities'],
+    subs:[
+      { id:'9.1', num:'9.1', label:'General', art:'Art. 17(1)(h)',
+        body:'The provider shall plan, implement, control, and maintain processes needed to meet requirements for the provision of the AI system and the QMS operations.',
+        reqs:['Establish criteria for processes and accept criteria for products and services','Implement control of processes according to criteria','Keep documented information to the extent necessary to ensure processes carried out as planned'] },
+      { id:'9.2', num:'9.2', label:'Supplier and procurement controls', art:'Art. 17(1)(l)',
+        body:'Evaluate, select, and monitor external suppliers of AI components, data, and services. Controls must be proportionate to the risk profile of the supplied item.',
+        reqs:['9.2.1 — Determine types and extent of controls to apply to external provision','9.2.2 — Evaluate and select suppliers based on regulatory compliance capability','9.2.3 — Monitor supplier performance continuously and re-evaluate periodically','9.2.4 — Communicate quality, cybersecurity, and regulatory requirements to suppliers','9.2.5 — Determine extent of control based on risk','Maintain documented evidence of all supplier evaluation and monitoring activities'] },
+      { id:'9.3', num:'9.3', label:'Quality objectives review', art:'Art. 17(1)(a)',
+        body:'The provider shall review progress against quality objectives at planned intervals.',
+        reqs:['9.3.1 — Determine what, when, and how to review progress against quality objectives','9.3.2 — Conduct reviews and document results','9.3.3 — Take corrective actions where objectives are not being met','Retain documented information of the reviews'] },
+      { id:'9.4', num:'9.4', label:'Post-market monitoring and logging', art:'Art. 12, Art. 72',
+        body:'Implement systematic post-market monitoring and automatic logging. Logs must capture sufficient information to enable incident investigation and regulatory review.',
+        reqs:['Establish a post-market monitoring plan collecting data from deployers and users','Implement automatic logging: timestamp, input data reference, output, version, involved persons (per prEN ISO/IEC 24970)','Retain logs for minimum 6 months (3 years for law enforcement use cases)','Analyse monitoring data and feed results into the risk management review cycle (8.1)','Document post-market monitoring procedures and retain monitoring results'] },
+      { id:'9.5', num:'9.5', label:'Serious incident reporting', art:'Art. 73, Art. 26(5)',
+        body:'Establish procedures to detect, assess, and report serious incidents within mandatory timelines. Deployers must receive reporting instructions in the instructions for use.',
+        reqs:['Establish procedures to detect and assess whether incidents meet "serious incident" threshold under Art. 73','Report to national competent authority: 2 days (critical infrastructure), 10 days (death or serious harm), 15 days (all other serious incidents)','Provide deployers with incident reporting instructions in the instructions for use (8.7.2)','Record and track all incidents, near-misses, and regulatory notifications','Implement corrective actions following serious incident analysis'] }
+    ]
+  },
+  { id:'10', num:'10', label:'Performance Evaluation', short:'Evaluation',
+    color:'#14532D', bg:'#F0FDF4', border:'#15803D',
+    art:'Art. 17(1)',
+    body:'Monitor, measure, analyse and evaluate QMS performance. Internal audits and management reviews are mandatory. A continual improvement process must be established.',
+    reqs:['10.1 General — determine what, when, and how to monitor and measure','10.2 Review — management review and audit activities','10.3 Improvement — nonconformity, corrective action, and continual improvement','10.4 Planning of changes — control changes to the QMS'],
+    subs:[
+      { id:'10.1', num:'10.1', label:'General', art:'Art. 17(1)',
+        body:'The provider shall monitor, measure, analyse, and evaluate the QMS and AI system performance.',
+        reqs:['Determine what needs to be monitored and measured','Determine methods for monitoring, measurement, analysis and evaluation','Determine when monitoring and measuring shall be performed','Analyse and evaluate results from monitoring and measurement','Retain documented information as evidence of the results'] },
+      { id:'10.2', num:'10.2', label:'Review', art:'Art. 17(1)',
+        body:'Conduct internal audits and management reviews at planned intervals to provide information about the QMS effectiveness.',
+        reqs:['10.2.1 Internal audit — audit programme covering all relevant QMS processes','10.2.2 Management review — review QMS suitability, adequacy, and effectiveness at planned intervals','10.2.3 Management review inputs — audit results, nonconformities, monitoring data, changes, objectives progress, stakeholder feedback','10.2.4 Management review outputs — decisions on improvement opportunities and changes needed','Retain documented information of internal audits and management reviews'] },
+      { id:'10.3', num:'10.3', label:'Improvement', art:'Art. 17(1)',
+        body:'Identify and implement improvements to the QMS to fulfil applicable regulatory requirements and enhance performance.',
+        reqs:['When nonconformity occurs: react, evaluate need for corrective action, implement actions','Corrective actions shall be appropriate to the effects of nonconformities','Retain documented information of nonconformity and corrective action results','Seek continual improvement opportunities in QMS processes and AI system performance'] },
+      { id:'10.4', num:'10.4', label:'Planning of changes', art:'Art. 17(1)',
+        body:'When the provider determines the need for changes to the QMS, the changes shall be carried out in a planned manner.',
+        reqs:['Consider purpose of changes and their potential consequences','Consider integrity of the QMS during changes','Consider availability of resources to implement changes','Consider allocation or reallocation of responsibilities and authorities','Assess impact of changes on regulatory compliance and technical documentation'] }
+    ]
+  },
+  { id:'ZA', num:'ZA', label:'Annex ZA — AI Act Mapping', short:'Annex ZA',
+    color:'#1E293B', bg:'#F1F5F9', border:'#475569',
+    art:'Art. 11, 17, 72',
+    body:'Maps each normative clause to the specific essential requirements of Regulation (EU) 2024/1689. Compliance creates a presumption of conformity once the standard is cited in the Official Journal.',
+    reqs:['Art. 11(1) → §8.7.1 technical documentation','Art. 17(1) first sentence → §4.1, 4.2, 4.3, 4.4, 5.1, 5.3','Art. 17(1)(a) → §4.4, 9.3.1, 9.3.2, 9.3.3','Art. 17(1)(b) → §8.3.1, 8.3.2 design and development','Art. 17(1)(c)(d) → §8.4 verification and validation','Art. 17(1)(e) → §4.4 regulatory compliance strategy','Art. 17(1)(f) → §8.5 data governance','Art. 17(1)(g) → §8.1 + prEN 18228 risk management','Art. 17(1)(h) → §9.4 post-market monitoring','Art. 17(1)(i) → §9.5 serious incident reporting','Art. 17(1)(j) → §7.3 communication','Art. 17(1)(k) → §4.5, 8.7 documented information','Art. 17(1)(l) → §7.1, 9.2 resources and supplier controls','Art. 17(1)(m) → §5.3 roles responsibilities','Art. 72 → §9.4 post-market monitoring'],
+    subs:[]
+  }
+];
+
+// Cross-references: which clauses each clause cites (OUT) and which cite it (IN)
+const XREF = {
+  '4':   {out:['5','6','8.1','9','10'],       in:['5','6','7','8','9','10','ZA']},
+  '4.1': {out:['4.2','4.3','4.4','4.5'],      in:['4','5.1','6.1']},
+  '4.2': {out:['4.1','6.1'],                  in:['4.1','4.3','5.1']},
+  '4.3': {out:['4.1','4.2'],                  in:['4.1','4.4']},
+  '4.4': {out:['4.3','8.3','9.3'],            in:['4.3','4.5','8.5','9']},
+  '4.5': {out:['4.4','8.7','10.1'],           in:['4.4','8','9','10.2']},
+  '5':   {out:['4','6','7'],                  in:['4','6','ZA']},
+  '5.1': {out:['4.1','4.2','5.2'],            in:['5']},
+  '5.2': {out:['5.1','6.2'],                  in:['5','5.1']},
+  '5.3': {out:['5.2','8.2'],                  in:['5','5.2','ZA']},
+  '6':   {out:['4','8.1'],                    in:['5','8']},
+  '6.1': {out:['4.1','4.2'],                  in:['6']},
+  '6.2': {out:['5.2','9.3'],                  in:['6','9.3']},
+  '7':   {out:['4','9.2'],                    in:['4','5']},
+  '7.1': {out:['9.2'],                        in:['7','ZA']},
+  '7.2': {out:['7.1'],                        in:['7']},
+  '7.3': {out:['7.1'],                        in:['7','ZA']},
+  '8':   {out:['4.4','6','8.1','8.5','9.4'],  in:['4','6','ZA']},
+  '8.1': {out:['4','6','8.3','9.4'],          in:['6','8','ZA']},
+  '8.2': {out:['8.1','8.3'],                  in:['8']},
+  '8.3': {out:['8.1','8.4','8.5','8.7'],      in:['8','8.2','ZA']},
+  '8.4': {out:['8.3','8.7'],                  in:['8','8.3','ZA']},
+  '8.5': {out:['4.4','8.3','8.7'],            in:['8','8.3','ZA']},
+  '8.6': {out:['8.5','8.7'],                  in:['8']},
+  '8.7': {out:['4.5','8.4','8.6','9.4'],      in:['8','8.3','8.4','8.5','9.4','ZA']},
+  '9':   {out:['4','8.7','9.4','9.5'],        in:['4','8']},
+  '9.1': {out:['9.2'],                        in:['9']},
+  '9.2': {out:['7','9.1'],                    in:['7','9','ZA']},
+  '9.3': {out:['6.2','9.1'],                  in:['9','ZA']},
+  '9.4': {out:['8.7','9.3','9.5'],            in:['9','8.7','ZA']},
+  '9.5': {out:['9','9.4','8.7'],              in:['9','ZA']},
+  '10':  {out:['4.5','6'],                    in:['4','9']},
+  '10.1':{out:['6.2'],                        in:['10']},
+  '10.2':{out:['10.1','10.3'],               in:['10']},
+  '10.3':{out:['10.2'],                       in:['10','10.2']},
+  '10.4':{out:['10.3'],                       in:['10']},
+  'ZA':  {out:['4','5','8','9'],              in:[]}
+};
+
+// External references per clause
+const EXT_REFS = {
+  '4':   ['EU AI Act Art. 17','ISO 9001:2015 §4','ISO 42001 §4'],
+  '4.4': ['EU AI Act Art. 17(1)(a)','EU AI Act Art. 17(1)(e)'],
+  '4.5': ['EU AI Act Art. 11(1)','Annex IV format','EU AI Act Art. 18'],
+  '5':   ['EU AI Act Art. 17(1)(m)','ISO 9001:2015 §5','ISO 42001 §5'],
+  '5.3': ['EU AI Act Art. 17(1)(m)'],
+  '6':   ['EU AI Act Art. 17(1)','ISO 9001:2015 §6','ISO 42001 §6'],
+  '7':   ['EU AI Act Art. 17(1)(j)','EU AI Act Art. 17(1)(l)'],
+  '7.1': ['EU AI Act Art. 17(1)(l)'],
+  '7.2': ['EU AI Act Art. 17(1)(j)'],
+  '7.3': ['EU AI Act Art. 17(1)(j)'],
+  '8':   ['EU AI Act Art. 9–15','EU AI Act Art. 17(1)(b)–(g)','ISO/IEC 22989'],
+  '8.1': ['EU AI Act Art. 9','prEN 18228 (normative reference)'],
+  '8.3': ['EU AI Act Art. 15','prEN 18229-2','prEN 18282'],
+  '8.4': ['EU AI Act Art. 17(1)(c)(d)','prEN 18229-2 accuracy testing'],
+  '8.5': ['EU AI Act Art. 10','prEN 18284 (normative reference)','prEN 18283 bias management'],
+  '8.7': ['EU AI Act Art. 11','EU AI Act Art. 13','Annex IV format'],
+  '9':   ['EU AI Act Art. 12','EU AI Act Art. 17(1)(h)(i)(l)','EU AI Act Art. 72','EU AI Act Art. 73'],
+  '9.2': ['EU AI Act Art. 17(1)(l)','prEN 18282 security by design'],
+  '9.4': ['EU AI Act Art. 12','EU AI Act Art. 72','prEN 18229-1','prEN ISO/IEC 24970'],
+  '9.5': ['EU AI Act Art. 73','EU AI Act Art. 26(5)'],
+  '10':  ['EU AI Act Art. 17(1)','ISO 9001:2015 §9–10','ISO 42001 §9–10'],
+  'ZA':  ['EU AI Act Art. 11','EU AI Act Art. 17','EU AI Act Art. 72','Regulation 2024/1689']
+};
+
+// ══════════════════════════════════════════════════════════════════
+// FLAT LOOKUP
+// ══════════════════════════════════════════════════════════════════
+const LOOKUP = {};
+CHAPTERS.forEach(c => {
+  LOOKUP[c.id] = c;
+  c.subs.forEach(s => LOOKUP[s.id] = { ...s, color: c.color, bg: c.bg, border: c.border, parentId: c.id });
+});
+
+let selId = '4';
+
+// ══════════════════════════════════════════════════════════════════
+// SVG GRAPH — Group boxes: main clause = container, subs inside
+// ══════════════════════════════════════════════════════════════════
+const GUTTER    = 8;    // outer padding
+const ROW_GAP   = 10;   // vertical gap between chapter group rows
+const PAD_X     = 8;    // inner horizontal padding inside group box
+const PAD_TOP   = 20;   // top padding inside group box (room for label)
+const PAD_BOT   = 8;    // bottom padding inside group box
+const SUB_H     = 34;   // sub-clause box height
+const SUB_W_MIN = 44;   // minimum sub-clause box width
+const SUB_GAP   = 5;    // gap between sub boxes inside group
+const CORNER    = 6;    // border-radius
+const NOSUB_H   = 34;   // group height when no sub-clauses
+
+function buildGroupLayout(svgW) {
+  const groups = [];
+  const usableW = svgW - GUTTER * 2;
+
+  CHAPTERS.forEach(c => {
+    if (c.subs.length === 0) {
+      // No subs: single flat box, full width
+      groups.push({
+        id: c.id, chap: c, noSubs: true,
+        gx: GUTTER, gy: 0, gw: usableW, gh: NOSUB_H,
+        subs: []
+      });
+    } else {
+      // Distribute sub boxes evenly across usable width
+      const innerW = usableW - PAD_X * 2;
+      const totalGap = SUB_GAP * (c.subs.length - 1);
+      let subW = Math.floor((innerW - totalGap) / c.subs.length);
+      subW = Math.max(subW, SUB_W_MIN);
+      const groupH = PAD_TOP + SUB_H + PAD_BOT;
+      const subs = c.subs.map((s, i) => ({
+        id: s.id, sub: s,
+        sx: GUTTER + PAD_X + i * (subW + SUB_GAP),
+        sy: 0, // relative to group y — resolved after
+        sw: subW, sh: SUB_H
+      }));
+      groups.push({
+        id: c.id, chap: c, noSubs: false,
+        gx: GUTTER, gy: 0, gw: usableW, gh: groupH,
+        subs
+      });
+    }
+  });
+
+  // assign y positions
+  let y = GUTTER;
+  groups.forEach(g => {
+    g.gy = y;
+    g.subs.forEach(s => { s.sy = y + PAD_TOP; });
+    // store centre for connection lines
+    g.cx = g.gx + g.gw / 2;
+    g.cy = g.gy + g.gh / 2;
+    y += g.gh + ROW_GAP;
+  });
+
+  return groups;
+}
+
+function renderSVG() {
+  const svg = document.getElementById('clauseSvg');
+  const wrap = svg.parentElement;
+  const W = Math.max(wrap.clientWidth || 400, 200);
+  const groups = buildGroupLayout(W);
+
+  const lastG = groups[groups.length - 1];
+  const H = lastG.gy + lastG.gh + GUTTER + 28;
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  svg.setAttribute('height', H);
+
+  // Build lookup: id → position info for connection lines
+  const posByID = {};
+  groups.forEach(g => {
+    posByID[g.id] = { cx: g.cx, cy: g.cy, top: g.gy, bot: g.gy + g.gh, left: g.gx, right: g.gx + g.gw };
+    g.subs.forEach(s => {
+      posByID[s.id] = {
+        cx: s.sx + s.sw / 2,
+        cy: s.sy + s.sh / 2,
+        top: s.sy, bot: s.sy + s.sh,
+        left: s.sx, right: s.sx + s.sw
+      };
+    });
+  });
+
+  const xref = XREF[selId] || { out: [], in: [] };
+  const highlightOut = new Set(xref.out);
+  const highlightIn  = new Set(xref.in);
+
+  let html = '';
+
+  // ── 1. Connection lines ──
+  if (posByID[selId]) {
+    const src = posByID[selId];
+    xref.out.forEach(tid => {
+      if (!posByID[tid]) return;
+      const t = posByID[tid];
+      const x1 = src.cx, y1 = src.bot;
+      const x2 = t.cx,   y2 = t.top;
+      const my = (y1 + y2) / 2;
+      html += `<path d="M${x1},${y1} C${x1},${my} ${x2},${my} ${x2},${y2}"
+        fill="none" stroke="#3B82F6" stroke-width="2" stroke-dasharray="5,3" opacity="0.82">
+        <animate attributeName="stroke-dashoffset" from="0" to="16" dur="0.9s" repeatCount="indefinite"/>
+      </path>
+      <polygon points="${x2},${y2} ${x2-4},${y2-8} ${x2+4},${y2-8}" fill="#3B82F6" opacity="0.9"/>`;
+    });
+    xref.in.forEach(tid => {
+      if (!posByID[tid]) return;
+      const s = posByID[tid];
+      const x1 = s.cx,   y1 = s.bot;
+      const x2 = src.cx, y2 = src.top;
+      const my = (y1 + y2) / 2;
+      html += `<path d="M${x1},${y1} C${x1},${my} ${x2},${my} ${x2},${y2}"
+        fill="none" stroke="#7C3AED" stroke-width="2" stroke-dasharray="5,3" opacity="0.82">
+        <animate attributeName="stroke-dashoffset" from="16" to="0" dur="0.9s" repeatCount="indefinite"/>
+      </path>
+      <polygon points="${x2},${y2} ${x2-4},${y2+8} ${x2+4},${y2+8}" fill="#7C3AED" opacity="0.9"/>`;
+    });
+  }
+
+  // ── 2. Draw each chapter group ──
+  groups.forEach(g => {
+    const c = g.chap;
+
+    // Determine group highlight state
+    const chapIsSel    = selId === c.id;
+    const chapIsOut    = highlightOut.has(c.id);
+    const chapIsIn     = highlightIn.has(c.id);
+    // Is any sub of this chapter selected or highlighted?
+    const anySubSel    = g.subs.some(s => s.id === selId);
+    const anySubOut    = g.subs.some(s => highlightOut.has(s.id));
+    const anySubIn     = g.subs.some(s => highlightIn.has(s.id));
+    const rowActive    = chapIsSel || anySubSel || chapIsOut || anySubOut || chapIsIn || anySubIn;
+
+    // Group outer box colour
+    let gFill, gStroke, gSW, gOp;
+    if (chapIsSel) {
+      gFill = c.color; gStroke = c.color; gSW = 2; gOp = 1;
+    } else if (chapIsOut || anySubOut) {
+      gFill = '#EFF6FF'; gStroke = '#3B82F6'; gSW = 2; gOp = 1;
+    } else if (chapIsIn || anySubIn) {
+      gFill = '#F5F3FF'; gStroke = '#7C3AED'; gSW = 2; gOp = 1;
+    } else if (anySubSel) {
+      gFill = c.bg; gStroke = c.border; gSW = 2; gOp = 1;
+    } else {
+      gFill = '#FAFBFE'; gStroke = '#D8DCE8'; gSW = 1.5; gOp = 0.7;
+    }
+
+    const labelCol = chapIsSel ? '#fff' : c.color;
+
+    // Draw group container
+    html += `<rect x="${g.gx}" y="${g.gy}" width="${g.gw}" height="${g.gh}"
+      rx="${CORNER+2}" ry="${CORNER+2}" fill="${gFill}" stroke="${gStroke}" stroke-width="${gSW}" opacity="${gOp}"/>`;
+
+    // Chapter label in top-left of the group box
+    // Clickable to select the chapter itself
+    const labelFontW = chapIsSel ? '700' : '600';
+    html += `<g onclick="selectClause('${c.id}')" style="cursor:pointer">
+      <text x="${g.gx + PAD_X}" y="${g.gy + 13}" dominant-baseline="middle"
+        font-size="9" font-weight="${labelFontW}" fill="${labelCol}" font-family="DM Sans,sans-serif"
+        opacity="${gOp}">${c.num} · ${c.label}</text>
+    </g>`;
+
+    if (g.noSubs) {
+      // No subs: the whole group IS the clickable node — already handled by label above
+      // Add a subtle inner text if fully selected
+    } else {
+      // ── Sub-clause boxes inside the group ──
+      g.subs.forEach(s => {
+        const subIsSel = s.id === selId;
+        const subIsOut = highlightOut.has(s.id);
+        const subIsIn  = highlightIn.has(s.id);
+
+        let sFill, sStroke, sSW, sOp;
+        if (subIsSel)      { sFill = c.color; sStroke = c.color; sSW = 2; sOp = 1; }
+        else if (subIsOut) { sFill = '#DBEAFE'; sStroke = '#3B82F6'; sSW = 1.5; sOp = 1; }
+        else if (subIsIn)  { sFill = '#EDE9FE'; sStroke = '#7C3AED'; sSW = 1.5; sOp = 1; }
+        else               { sFill = c.bg; sStroke = c.border; sSW = 1; sOp = 0.75; }
+
+        const sTxtNum   = subIsSel ? '#fff' : c.color;
+        const sTxtTitle = subIsSel ? 'rgba(255,255,255,0.88)' : '#4A5068';
+
+        // Fit title
+        const maxCh = Math.max(3, Math.floor((s.sw - 8) / 4.5));
+        const shortT = s.sub.label.length > maxCh ? s.sub.label.substring(0, maxCh - 1) + '…' : s.sub.label;
+
+        html += `<g onclick="selectClause('${s.id}')" style="cursor:pointer">
+          <rect x="${s.sx}" y="${s.sy}" width="${s.sw}" height="${s.sh}"
+            rx="${CORNER}" ry="${CORNER}" fill="${sFill}" stroke="${sStroke}" stroke-width="${sSW}" opacity="${sOp}"/>
+          <text x="${s.sx + s.sw/2}" y="${s.sy + 11}" text-anchor="middle" dominant-baseline="middle"
+            font-size="8.5" font-weight="800" fill="${sTxtNum}" font-family="DM Sans,sans-serif"
+            opacity="${sOp}">${s.sub.num}</text>
+          <text x="${s.sx + s.sw/2}" y="${s.sy + 23}" text-anchor="middle" dominant-baseline="middle"
+            font-size="6" fill="${sTxtTitle}" font-family="DM Sans,sans-serif"
+            opacity="${sOp}">${shortT}</text>
+        </g>`;
+      });
+    }
+  });
+
+  // ── 3. Legend ──
+  const ly = H - 20;
+  html += `<g font-family="DM Sans,sans-serif" font-size="8">
+    <line x1="${GUTTER}" y1="${ly+3}" x2="${GUTTER+18}" y2="${ly+3}" stroke="#3B82F6" stroke-width="2" stroke-dasharray="4,2"/>
+    <text x="${GUTTER+21}" y="${ly+5}" fill="#3B82F6" font-weight="600">Cites →</text>
+    <line x1="${GUTTER+68}" y1="${ly+3}" x2="${GUTTER+86}" y2="${ly+3}" stroke="#7C3AED" stroke-width="2" stroke-dasharray="4,2"/>
+    <text x="${GUTTER+89}" y="${ly+5}" fill="#7C3AED" font-weight="600">← Cited by</text>
+  </g>`;
+
+  svg.innerHTML = html;
+}
+
+function selectClause(id) {
+  selId = id;
+  renderSVG();
+  renderContent();
+}
+
+// ══════════════════════════════════════════════════════════════════
+// CLAUSE CONTENT
+// ══════════════════════════════════════════════════════════════════
+function renderContent() {
+  const c = LOOKUP[selId];
+  if (!c) return;
+
+  const xref = XREF[selId] || { out: [], in: [] };
+  const exts = EXT_REFS[selId] || [];
+
+  const outHtml = xref.out.length
+    ? xref.out.map(id => `<span class="ref-tag internal" onclick="selectClause('${id}')">§${id} →</span>`).join('')
+    : '<span class="ref-empty">None within prEN 18286</span>';
+
+  const inHtml = xref.in.length
+    ? xref.in.map(id => `<span class="ref-tag internal" onclick="selectClause('${id}')">← §${id}</span>`).join('')
+    : '<span class="ref-empty">No other clauses cite this</span>';
+
+  const extHtml = exts.length
+    ? exts.map(ref => {
+        let cls = 'ext';
+        if (ref.startsWith('EU AI Act') || ref.startsWith('Art.') || ref.startsWith('Annex') || ref.startsWith('Regulation')) cls = 'aiact';
+        else if (ref.startsWith('ISO') || ref.startsWith('prEN') || ref.startsWith('IEC')) cls = 'iso';
+        return `<span class="ref-tag ${cls}">${ref}</span>`;
+      }).join('')
+    : '<span class="ref-empty">None</span>';
+
+  const reqsHtml = c.reqs.map(r => {
+    // Remove all clause number references from requirement text:
+    // 1. Leading patterns like "4.4.1 — ", "5.3 — ", "6.2.2 — "
+    // 2. Trailing parenthetical refs like "(4.5)", "(see 9.2)"
+    // 3. Mid-sentence refs like "identified in 4.1", "as defined in 4.3"
+    // 4. Leading "N.N.N General — " or "N.N General — " style prefixes
+    let clean = r
+      .replace(/^\d+\.\d+(\.\d+)?\s*[—–-]+\s*/g, '')          // leading "4.4.1 — "
+      .replace(/\s*\(see\s+[\d.]+\)/gi, '')                     // "(see 9.2)"
+      .replace(/\s*\([\d.]+\)/g, '')                            // "(4.5)"
+      .replace(/,?\s+(see\s+)?[\d]+\.[\d]+(\.\d+)?\b/g, '')    // "in 4.1", ", 4.4.2"
+      .replace(/\s+(identified|defined|described|referenced|required|referred to)\s+in\s+[\d.]+/gi, '') // "identified in 4.1"
+      .replace(/\s*\(?\s*see\s+[\d.]+\s*\)?/gi, '')             // stray "see X.X"
+      .trim();
+    // Clean up any trailing punctuation artifacts
+    clean = clean.replace(/[,;:]\s*$/, '').trim();
+    return `<div class="req-item"><div class="req-dot"></div><span>${clean}</span></div>`;
+  }).join('');
+
+  // Chapter subs list if this is a parent clause
+  let subsHtml = '';
+  if (c.subs && c.subs.length) {
+    subsHtml = `<div class="slbl" style="margin-top:.85rem">Sub-clauses in this chapter</div>
+      <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:.85rem">
+        ${c.subs.map(s => `<span class="ref-tag internal" onclick="selectClause('${s.id}')">§${s.num} ${s.label}</span>`).join('')}
+      </div>`;
+  }
+
+  document.getElementById('clauseContent').innerHTML = `
+    <div class="cc-card">
+      <div class="cc-hdr">
+        <div class="cc-badge" style="background:${c.bg};border-color:${c.border};color:${c.color}">${c.num}</div>
+        <div>
+          <div class="cc-numtag">prEN 18286:2025 · Clause ${c.num}</div>
+          <div class="cc-title">${c.label}</div>
+        </div>
+      </div>
+      <div class="cc-art-row"><span class="cc-art">${c.art || ''}</span></div>
+      <div class="cc-body">${c.body}</div>
+      <div class="slbl">Key requirements</div>
+      <div class="req-list">${reqsHtml}</div>
+      ${subsHtml}
+    </div>
+    <div class="ref-grid">
+      <div class="ref-panel">
+        <div class="rpt">
+          <svg viewBox="0 0 12 12" fill="none"><path d="M6 1L11 6L6 11" stroke="#3B82F6" stroke-width="1.5" stroke-linecap="round"/><path d="M1 6H11" stroke="#3B82F6" stroke-width="1.5" stroke-linecap="round"/></svg>
+          References (this clause cites)
+        </div>
+        <div>${outHtml}</div>
+      </div>
+      <div class="ref-panel">
+        <div class="rpt">
+          <svg viewBox="0 0 12 12" fill="none"><path d="M6 11L1 6L6 1" stroke="#7C3AED" stroke-width="1.5" stroke-linecap="round"/><path d="M11 6H1" stroke="#7C3AED" stroke-width="1.5" stroke-linecap="round"/></svg>
+          Referenced by
+        </div>
+        <div>${inHtml}</div>
+      </div>
+      <div class="ref-panel full">
+        <div class="rpt">
+          <svg viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="#D97706" stroke-width="1.5"/><path d="M6 4V6.5" stroke="#D97706" stroke-width="1.5" stroke-linecap="round"/><circle cx="6" cy="8.5" r=".75" fill="#D97706"/></svg>
+          External standards &amp; legislation
+        </div>
+        <div>${extHtml}</div>
+      </div>
+    </div>`;
+}
+
+// ══════════════════════════════════════════════════════════════════
+// INIT + RESIZE
+// ══════════════════════════════════════════════════════════════════
+window.addEventListener('resize', () => { renderSVG(); });
+renderSVG();
+renderContent();
+</script>
+</body>
+</html>
