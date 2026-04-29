@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>EU AI Act — High-Risk Provider Compliance Navigator</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#F4F6FB;color:#1a1a2e;font-family:'DM Sans',sans-serif}
+
+/* ══ PAGES ══ */
+.pg{display:none;flex-direction:column;min-height:100vh;background:#F4F6FB}
+.pg.on{display:flex}
+
+/* ══ HERO ══ */
+.hero{background:linear-gradient(135deg,#003399 0%,#1a5fb4 55%,#3a7bd5 100%);padding:4rem 2rem 3.5rem;text-align:center;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.hero-bg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:.18;pointer-events:none}
+.hero-inner{position:relative;max-width:720px;margin:0 auto;z-index:1}
+.eu-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,204,0,.16);border:1px solid rgba(255,204,0,.45);border-radius:24px;padding:6px 18px;font-size:12px;color:#FFCC00;margin-bottom:1.4rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase}
+.hero h1{font-family:'DM Serif Display',serif;font-size:2.5rem;font-weight:400;line-height:1.18;margin-bottom:.9rem;color:#fff}
+.hero h1 em{font-style:italic;color:#FFDD88}
+.hero p{font-size:1.05rem;opacity:.88;line-height:1.75;margin-bottom:2rem;max-width:560px;margin-left:auto;margin-right:auto;color:#fff}
+.cta-btn{display:inline-flex;align-items:center;gap:10px;background:#FFCC00;color:#003399;padding:14px 36px;border-radius:50px;font-size:.95rem;font-weight:700;cursor:pointer;border:none;transition:transform .15s,box-shadow .15s;letter-spacing:.02em}
+.cta-btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,0,0,.22)}
+.cta-btn svg{width:16px;height:16px}
+
+/* ══ FOOTER ══ */
+.foot{padding:1.1rem 2rem;text-align:center;background:#fff;border-top:1px solid #E0E4EF;flex-shrink:0}
+.foot-disc{font-size:.72rem;color:#8890B0;margin-bottom:.65rem;line-height:1.6}
+.crow{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap}
+.cl{display:flex;align-items:center;gap:6px;padding:5px 13px;border:1px solid #D8DBE8;border-radius:8px;text-decoration:none;color:#1a1a2e;font-size:.78rem;background:#F4F6FB;transition:all .15s;white-space:nowrap;font-weight:500}
+.cl:hover{border-color:#3a7bd5;color:#3a7bd5;background:#E6F1FB}
+.ci{width:17px;height:17px;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:9px;flex-shrink:0;font-weight:700}
+.li{background:#0A66C2;color:#fff}.ss{background:#FF6719;color:#fff}.ml{background:#3a7bd5;color:#fff}
+
+/* ══ TOOL HEADER ══ */
+.th{background:#003399;padding:.9rem 1.5rem;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.th h2{font-size:.88rem;font-weight:600;color:#fff;letter-spacing:.01em}
+.bk{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3);padding:5px 14px;border-radius:20px;cursor:pointer;font-size:11px;font-weight:500;transition:background .15s}
+.bk:hover{background:rgba(255,255,255,.25)}
+
+/* ══ TOOL BODY ══ */
+.tool-body{display:flex;flex:1;min-height:0}
+
+/* ══ LEFT MAP PANEL ══ */
+.map-panel{width:190px;flex-shrink:0;background:#fff;border-right:1px solid #E0E4EF;padding:1rem .7rem;overflow-y:auto}
+.map-title{font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:#8890B0;margin-bottom:.85rem;padding:0 .25rem}
+.map-group{margin-bottom:.85rem}
+.map-group-label{font-size:7.5px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#8890B0;padding:0 .25rem;margin-bottom:.3rem;opacity:.75}
+.mn{display:flex;align-items:flex-start;gap:7px;padding:5px 7px;border-radius:7px;cursor:pointer;transition:all .15s;border:1.5px solid transparent;margin-bottom:2px}
+.mn:hover{background:#EEF2FB;border-color:#C8D4EE}
+.mn.active{background:#E6F1FB;border-color:#85B7EB}
+.mn.done{background:#F0FAF5}
+.mn.terminal{cursor:default;opacity:.5}
+.mn.terminal:hover{background:transparent;border-color:transparent}
+.md{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;flex-shrink:0;margin-top:1px;border:1.5px solid transparent;transition:all .2s}
+.md.pend{background:#EEF2FB;border-color:#C8D4EE;color:#8890B0}
+.md.done{background:#1D9E75;border-color:#1D9E75;color:#fff}
+.md.active{background:#3a7bd5;border-color:#3a7bd5;color:#fff}
+.md.instr{background:#E6F1FB;border-color:#85B7EB;color:#0C447C}
+.md.rr{background:#FECDD3;border-color:#F87171;color:#7f1d1d}
+.mlab{font-size:10px;line-height:1.3;color:#8890B0}
+.mn.active .mlab{color:#0C447C;font-weight:600}
+.mn.done .mlab{color:#1a1a2e;font-weight:500}
+.mconn{width:1.5px;height:7px;background:#E0E4EF;margin:0 0 2px 16px}
+.mconn.done{background:#1D9E75}
+
+/* ══ QUESTION PANEL ══ */
+.qa-panel{flex:1;padding:1.3rem;overflow-y:auto;background:#F4F6FB;min-width:0}
+.qcard{background:#fff;border-radius:12px;border:1px solid #E0E4EF;padding:1.5rem;width:100%;box-shadow:0 1px 4px rgba(0,0,51,.05)}
+.qstep{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#3a7bd5;margin-bottom:3px}
+.qtitle{font-family:'DM Serif Display',serif;font-size:1.1rem;font-weight:400;line-height:1.4;margin-bottom:1rem;color:#1a1a2e}
+.qhint{background:#FFFBEB;border-left:3px solid #FFCC00;padding:9px 13px;font-size:.78rem;color:#4A5068;line-height:1.65;margin-bottom:1rem;border-radius:0 6px 6px 0}
+.opts{display:flex;flex-direction:column;gap:7px;margin-bottom:1rem}
+.opt{display:flex;align-items:center;gap:10px;padding:11px 14px;border:1.5px solid #E0E4EF;border-radius:9px;background:#fff;cursor:pointer;text-align:left;font-size:.85rem;color:#1a1a2e;transition:all .15s;line-height:1.5;width:100%}
+.opt:hover{border-color:#3a7bd5;background:#E6F1FB;color:#0C447C}
+.opt.sel{border-color:#3a7bd5;background:#3a7bd5;color:#fff}
+.oltr{width:23px;height:23px;border-radius:50%;background:#F4F6FB;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;border:1.5px solid #D8DBE8;color:#4A5068}
+.opt.sel .oltr{background:rgba(255,255,255,.22);border-color:transparent;color:#fff}
+.opt:hover:not(.sel) .oltr{background:#3a7bd5;color:#fff;border-color:transparent}
+.brow{display:flex;justify-content:space-between;align-items:center;margin-top:4px}
+.pbtn{background:#fff;border:1.5px solid #D8DBE8;padding:8px 16px;border-radius:20px;cursor:pointer;font-size:.8rem;color:#8890B0;transition:all .15s;font-weight:500}
+.pbtn:hover{border-color:#3a7bd5;color:#3a7bd5}
+.pbtn:disabled{opacity:.3;pointer-events:none}
+.nbtn{background:#3a7bd5;color:#fff;border:none;padding:8px 22px;border-radius:20px;cursor:pointer;font-size:.8rem;font-weight:700;transition:all .15s}
+.nbtn:hover{background:#2960b8}
+.nbtn.dim{opacity:.35;pointer-events:none}
+
+/* ══ INSTRUCTION CARD ══ */
+.icard{background:#fff;border-radius:12px;border:1px solid #E0E4EF;padding:1.5rem;width:100%;box-shadow:0 1px 4px rgba(0,0,51,.05)}
+.i-hdr{display:flex;align-items:center;gap:11px;margin-bottom:.9rem}
+.i-num{width:34px;height:34px;border-radius:50%;background:#3a7bd5;color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0}
+.i-num.red{background:#DC2626}
+.i-tag{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#3a7bd5}
+.i-ref{display:inline-block;background:#E6F1FB;color:#185FA5;font-size:10px;padding:2px 10px;border-radius:10px;font-weight:600;margin-bottom:.85rem}
+.i-title{font-family:'DM Serif Display',serif;font-size:1.1rem;font-weight:400;color:#1a1a2e;margin-bottom:.5rem}
+.i-body{font-size:.83rem;line-height:1.75;color:#4A5068;margin-bottom:1rem}
+.erg-btn{display:inline-flex;align-items:center;gap:8px;background:#003399;color:#FFCC00;border:none;padding:9px 18px;border-radius:9px;cursor:pointer;font-size:.8rem;font-weight:700;margin-bottom:1.1rem;transition:all .15s;letter-spacing:.02em}
+.erg-btn:hover{background:#1a5fb4;transform:translateY(-1px)}
+.erg-btn svg{width:13px;height:13px;flex-shrink:0}
+.slbl{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.5rem;color:#8890B0}
+.cl-list{display:flex;flex-direction:column;gap:6px;margin-bottom:1rem}
+.ci-item{display:flex;align-items:flex-start;gap:8px;padding:9px 12px;border-radius:8px;font-size:.8rem;line-height:1.55;color:#1a1a2e}
+.ci-item.g{background:#DCFCE7}.ci-item.r{background:#FEE2E2}
+.cik{width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;flex-shrink:0;margin-top:1px}
+.cik.g{background:#16A34A;color:#fff}.cik.r{background:#DC2626;color:#fff}
+.pdots{display:flex;gap:4px;align-items:center}
+.pd{width:6px;height:6px;border-radius:50%;background:#D8DBE8}
+.pd.a{background:#3a7bd5;width:18px;border-radius:3px}
+.pd.d{background:#1D9E75}
+
+/* ══ RESULT CARD ══ */
+.rcard{background:#fff;border-radius:12px;border:1px solid #E0E4EF;padding:1.5rem;width:100%;box-shadow:0 1px 4px rgba(0,0,51,.05)}
+.rbadge{display:inline-block;padding:4px 14px;border-radius:20px;font-size:11px;font-weight:700;margin-bottom:.9rem;letter-spacing:.02em}
+.rg{background:#DCFCE7;color:#14532D}.rr{background:#FEE2E2;color:#7f1d1d}
+.rtitle{font-family:'DM Serif Display',serif;font-size:1.15rem;font-weight:400;margin-bottom:.55rem;color:#1a1a2e}
+.rdesc{font-size:.85rem;line-height:1.75;color:#4A5068;margin-bottom:1.1rem}
+.rlist{display:flex;flex-direction:column;gap:6px;margin-bottom:1.1rem}
+.ri{display:flex;align-items:flex-start;gap:9px;padding:9px 12px;border-radius:8px;font-size:.8rem;line-height:1.5;color:#1a1a2e}
+.ri.sg{background:#DCFCE7}.ri.sr{background:#FEE2E2}.ri.sb{background:#E6F1FB}
+.rsn{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;flex-shrink:0;background:rgba(0,0,0,.07)}
+.disc{font-size:.72rem;color:#8890B0;line-height:1.6;margin-bottom:.9rem;padding:8px 11px;background:#F4F6FB;border-radius:8px;border:1px solid #E0E4EF}
+.ab{background:#3a7bd5;color:#fff;border:none;padding:9px 20px;border-radius:20px;cursor:pointer;font-size:.8rem;font-weight:700;transition:all .15s}
+.ab:hover{background:#2960b8}
+.ab.o{background:#fff;color:#3a7bd5;border:1.5px solid #3a7bd5;margin-left:8px}
+.ab.o:hover{background:#E6F1FB}
+
+
+
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     LANDING PAGE
+══════════════════════════════════════════ -->
+<div id="ph" class="pg on">
+  <div class="hero">
+    <div class="hero-bg">
+      <svg width="560" height="560" viewBox="0 0 480 480" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="240" cy="240" r="220" fill="none" stroke="#FFDD00" stroke-width="2"/>
+        <g fill="#FFDD00">
+          <polygon points="240,28 243.5,38.8 255,38.8 245.7,45.2 249.2,56 240,49.6 230.8,56 234.3,45.2 225,38.8 236.5,38.8" transform="rotate(0,240,240)"/>
+          <polygon points="240,28 243.5,38.8 255,38.8 245.7,45.2 249.2,56 240,49.6 230.8,56 234.3,45.2 225,38.8 236.5,38.8" transform="rotate(30,240,240)"/>
+          <polygon points="240,28 243.5,38.8 255,38.8 245.7,45.2 249.2,56 240,49.6 230.8,56 234.3,45.2 225,38.8 236.5,38.8" transform="rotate(60,240,240)"/>
+          <polygon points="240,28 243.5,38.8 255,38.8 245.7,45.2 249.2,56 240,49.6 230.8,56 234.3,45.2 225,38.8 236.5,38.8" transform="rotate(90,240,240)"/>
+          <polygon points="240,28 243.5,38.8 255,38.8 245.7,45.2 249.2,56 240,49.6 230.8,56 234.3,45.2 225,38.8 236.5,38.8" transform="rotate(120,240,240)"/>
+          <polygon points="240,28 243.5,38.8 255,38.8 245.7,45.2 249.2,56 240,49.6 230.8,56 234.3,45.2 225,38.8 236.5,38.8" transform="rotate(150,240,240)"/>
+          <polygon points="240,28 243.5,38.8 255,38.8 245.7,45.2 249.2,56 240,49.6 230.8,56 234.3,45.2 225,38.8 236.5,38.8" transform="rotate(180,240,240)"/>
+          <polygon points="240,28 243.5,38.8 255,38.8 245.7,45.2 249.2,56 240,49.6 230.8,56 234.3,45.2 225,38.8 236.5,38.8" transform="rotate(210,240,240)"/>
+          <polygon points="240,28 243.5,38.8 255,38.8 245.7,45.2 249.2,56 240,49.6 230.8,56 234.3,45.2 225,38.8 236.5,38.8" transform="rotate(240,240,240)"/>
+          <polygon points="240,28 243.5,38.8 255,38.8 245.7,45.2 249.2,56 240,49.6 230.8,56 234.3,45.2 225,38.8 236.5,38.8" transform="rotate(270,240,240)"/>
+          <polygon points="240,28 243.5,38.8 255,38.8 245.7,45.2 249.2,56 240,49.6 230.8,56 234.3,45.2 225,38.8 236.5,38.8" transform="rotate(300,240,240)"/>
+          <polygon points="240,28 243.5,38.8 255,38.8 245.7,45.2 249.2,56 240,49.6 230.8,56 234.3,45.2 225,38.8 236.5,38.8" transform="rotate(330,240,240)"/>
+        </g>
+      </svg>
+    </div>
+    <div class="hero-inner">
+      <div class="eu-badge">★ EU AI Act Compliance Navigator</div>
+      <h1>Is your AI system <em>high-risk</em> under the EU AI Act?</h1>
+      <p>A step by step guidance to achieve compliance to the obligations of High-Risk providers</p>
+      <button class="cta-btn" onclick="startTool()">
+        Start your journey
+        <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="foot">
+    <p class="foot-disc">This tool is for informational purposes only. Always consult qualified legal counsel for interpretations of the EU AI Act text.</p>
+    <div class="crow">
+      <a class="cl" href="https://linkedin.com/in/placeholder" target="_blank"><div class="ci li">in</div><span>LinkedIn</span></a>
+      <a class="cl" href="https://substack.com/placeholder" target="_blank"><div class="ci ss">S</div><span>Substack</span></a>
+      <a class="cl" href="mailto:your@email.com"><div class="ci ml">@</div><span>your@email.com</span></a>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     COMPLIANCE JOURNEY TOOL
+══════════════════════════════════════════ -->
+<div id="pt" class="pg">
+  <div class="th">
+    <h2>EU AI Act — High-Risk Provider Compliance Journey</h2>
+    <button class="bk" onclick="home()">← Home</button>
+  </div>
+  <div class="tool-body">
+    <div class="map-panel" id="mapPanel"></div>
+    <div class="qa-panel" id="qa"></div>
+  </div>
+  <div class="foot">
+    <p class="foot-disc">This tool is for informational purposes only. Always consult qualified legal counsel for interpretations of the EU AI Act text.</p>
+    <div class="crow">
+      <a class="cl" href="https://linkedin.com/in/placeholder" target="_blank"><div class="ci li">in</div><span>LinkedIn</span></a>
+      <a class="cl" href="https://substack.com/placeholder" target="_blank"><div class="ci ss">S</div><span>Substack</span></a>
+      <a class="cl" href="mailto:your@email.com"><div class="ci ml">@</div><span>your@email.com</span></a>
+    </div>
+  </div>
+</div>
+
+
+
+<script>
+// ══════════════════════════════════════════════════════════════════
+// DATA — COMPLIANCE JOURNEY
+// ══════════════════════════════════════════════════════════════════
+const MAP_NODES=[
+  {id:'entity',l:'Entity type',t:'q',g:'Classification'},
+  {id:'modified',l:'Substantially modified?',t:'d',g:'Classification'},
+  {id:'gpai_highrisk',l:'High-risk use case?',t:'d',g:'Classification'},
+  {id:'highrisk',l:'High-risk use case?',t:'d',g:'Classification'},
+  {id:'agent',l:'In an agent?',t:'d',g:'Classification'},
+  {id:'deployer_hr',l:'Deployer FRIA',t:'q',g:'Deployer path'},
+  {id:'deployer_hr2',l:'Human oversight',t:'q',g:'Deployer path'},
+  {id:'deployer_hr3',l:'Incident reporting',t:'q',g:'Deployer path'},
+  {id:'qms',l:'1 · QMS',t:'i',g:'Provider path'},
+  {id:'docs',l:'2 · Documentation 10yr',t:'i',g:'Provider path'},
+  {id:'logs',l:'3 · Logging 6 months',t:'i',g:'Provider path'},
+  {id:'conformity',l:'4 · Conformity assessment',t:'i',g:'Provider path'},
+  {id:'ce',l:'5 · CE marking',t:'i',g:'Provider path'},
+  {id:'register',l:'6 · EU database',t:'i',g:'Provider path'},
+  {id:'restrict',l:'7 · Non-compliance',t:'i',g:'Provider path'},
+  {id:'result_deployer',l:'Deployer obligations',t:'rr',g:'Outcomes'},
+  {id:'no_obligation',l:'No high-risk obligations',t:'rr',g:'Outcomes'},
+  {id:'complicated',l:'Requires expert analysis',t:'rr',g:'Outcomes'}
+];
+
+const QSTEPS={
+  entity:{step:'Step 1 · Entity type',q:'What type of entity do you fall under?',hint:'It is possible to be multiple types of entity at once (Recital 83). Complete the journey once for each type that applies.',opts:[{t:'Provider',d:'Develops and places an AI system on the market under its own name or trademark'},{t:'Deployer',d:'Uses an AI system under its own authority for professional purposes'},{t:'GPAI model provider',d:'Places a General Purpose AI model on the EU market'}],next:(i)=>i===0?'qms':i===2?'gpai_highrisk':'modified'},
+  modified:{step:'Step 2 · Substantial modification',q:'Is the AI system substantially modified by the deployer?',hint:'A substantial modification reclassifies the deployer as a Provider (Article 25). Includes: different name/trademark, changed intended purpose, or substantial modification per Article 3(23).',opts:[{t:'Yes — the system has been substantially modified',d:''},{t:'No — deployed as-is without substantial modification',d:''}],next:(i)=>i===0?'qms':'highrisk'},
+  gpai_highrisk:{step:'Step 2 · GPAI high-risk check',q:'Is the GPAI model integrated into a high-risk use case?',hint:'Integration into an Annex III high-risk application triggers Provider obligations for the integrating entity.',opts:[{t:'Yes — integrated into an Annex III high-risk use case',d:'e.g. biometrics, critical infrastructure, employment, law enforcement'},{t:'No — used for general-purpose tasks only',d:''}],next:(i)=>i===0?'agent':'no_obligation'},
+  highrisk:{step:'Step 2 · High-risk use case',q:'Is the AI system integrated into a high-risk use case?',hint:'Annex III lists 8 high-risk categories: biometrics, critical infrastructure, education, employment, essential services, law enforcement, migration, and administration of justice.',opts:[{t:'Yes — falls within an Annex III high-risk category',d:''},{t:'No — does not fall within any Annex III category',d:''}],next:(i)=>i===0?'deployer_hr':'no_obligation'},
+  agent:{step:'Step 3 · Agentic deployment',q:'Is the GPAI model integrated into an AI agent?',hint:'Agentic AI systems acting autonomously create additional compliance complexity around runtime governance and human oversight (Article 14).',opts:[{t:'Yes — part of an autonomous AI agent',d:'Can invoke tools, interact with external systems, or act without constant human input'},{t:'No — standalone, non-agentic system',d:''}],next:(i)=>i===0?'complicated':'qms'},
+  deployer_hr:{step:'Deployer obligation 1 of 3',q:'Have you completed the Fundamental Rights Impact Assessment (FRIA)?',hint:'Article 27 requires deployers in the public sector or specified private sectors to conduct a FRIA before putting a high-risk AI system into service.',opts:[{t:'Yes — FRIA completed and documented',d:''},{t:'No — not yet conducted',d:''}],next:()=>'deployer_hr2'},
+  deployer_hr2:{step:'Deployer obligation 2 of 3',q:'Have you designated and trained human oversight personnel?',hint:'Article 14 requires deployers to designate persons with authority to oversee high-risk AI outputs and intervene or halt the system.',opts:[{t:'Yes — oversight personnel designated and trained',d:''},{t:'No — not yet operationalised',d:''}],next:()=>'deployer_hr3'},
+  deployer_hr3:{step:'Deployer obligation 3 of 3',q:'Do you have a procedure to report serious incidents to the provider?',hint:'Article 26(5) requires deployers to report serious incidents to the provider and the relevant market surveillance authority.',opts:[{t:'Yes — serious incident reporting procedure in place',d:''},{t:'No — not yet established',d:''}],next:()=>'result_deployer'}
+};
+
+const PROVIDER_STEPS=[
+  {id:'qms',num:1,tag:'Provider obligation 1 of 7',title:'Establish a Quality Management System',ref:'Article 17 · prEN 18286',body:'Providers must implement a documented QMS before placing a high-risk AI system on the EU market. prEN 18286 is the harmonised standard that, once cited in the Official Journal, creates a presumption of conformity with Article 17.',checks:[{t:'Define an AI quality policy and measurable quality objectives',w:false},{t:'Assign roles and responsibilities across the AI system lifecycle (cl. 5.3)',w:false},{t:'Establish a regulatory compliance strategy mapping Art. 9–15 to QMS processes (cl. 4.4)',w:false},{t:'Implement a risk management process per prEN 18228 for each AI system (cl. 8.1)',w:false},{t:'Set up supplier evaluation and monitoring controls (cl. 9.2)',w:false},{t:'Prepare QMS documented information accessible to notified bodies and authorities (cl. 4.5)',w:false}],showErg:true},
+  {id:'docs',num:2,tag:'Provider obligation 2 of 7',title:'Maintain technical documentation for 10 years',ref:'Article 11 · Article 18 · Annex IV',body:'Technical documentation must be prepared before market placement and retained for 10 years. It must follow Annex IV format and remain available to market surveillance authorities on request.',checks:[{t:'General description: intended purpose, version, deployment context (Annex IV §1)',w:false},{t:'Design and development documentation including architecture and training methodology',w:false},{t:'Information on training, validation and test datasets with data governance measures',w:false},{t:'Risk management system documentation per prEN 18228',w:false},{t:'Human oversight measures and technical means for intervention',w:false},{t:'EU Declaration of Conformity copy (Annex IV §6)',w:false}],showErg:false},
+  {id:'logs',num:3,tag:'Provider obligation 3 of 7',title:'Implement automatic logging — retain 6 months minimum',ref:'Article 12 · prEN 18286 §9.4',body:'High-risk AI systems must automatically generate logs enabling post-market monitoring and incident investigation. Minimum retention is 6 months (3 years for law enforcement).',checks:[{t:'Build automatic log generation into the system at design time',w:false},{t:'Logs must capture: timestamp, input data reference, output, version identifier',w:false},{t:'Establish log retention infrastructure for minimum 6 months',w:false},{t:'Ensure logs are accessible to market surveillance authorities on request',w:false}],showErg:false},
+  {id:'conformity',num:4,tag:'Provider obligation 4 of 7',title:'Perform conformity assessment',ref:'Article 43 · Annex VI · Annex VII',body:'Before market placement, providers must complete a conformity assessment. Most Annex III systems use internal control (Annex VI). Biometric identification systems require a notified body (Annex VII).',checks:[{t:'Determine Annex VI (internal) or Annex VII (notified body) pathway',w:false},{t:'Compile full Annex IV technical documentation as evidence base',w:false},{t:'Verify compliance with all Art. 9–15 essential requirements',w:false},{t:'Complete and sign the EU Declaration of Conformity',w:false}],showErg:false},
+  {id:'ce',num:5,tag:'Provider obligation 5 of 7',title:'Affix CE marking',ref:'Article 49',body:'After successful conformity assessment, affix the CE marking before EU market placement, accompanied by the EU Declaration of Conformity.',checks:[{t:'Affix CE marking visibly on the AI system or its documentation',w:false},{t:'Add notified body identification number if Annex VII was used',w:false},{t:'Issue the EU Declaration of Conformity and make it available',w:false},{t:'Do not affix CE marking before conformity assessment is complete',w:true}],showErg:false},
+  {id:'register',num:6,tag:'Provider obligation 6 of 7',title:'Register in the EU AI database',ref:'Article 71',body:'Register high-risk AI systems in the EU AI database before market placement. Mandatory from August 2026.',checks:[{t:'Create account in the EU AI database (managed by European Commission)',w:false},{t:'Register: system name, version, intended purpose, capabilities and limitations',w:false},{t:'Include conformity assessment outcome and Declaration of Conformity reference',w:false},{t:'Keep registration current after any substantial modification',w:false}],showErg:false},
+  {id:'restrict',num:7,tag:'Provider obligation 7 of 7',title:'Restrict or stop operations if non-compliant',ref:'Article 73 · Article 20',body:'If a serious incident occurs or a compliance violation is identified, providers must act immediately. Mandatory reporting timelines apply.',checks:[{t:'Immediately restrict or stop operations of the non-compliant system',w:true},{t:'Notify the relevant National Competent Authority / market surveillance authority',w:true},{t:'Notify affected deployers and, where relevant, end users',w:true},{t:'2 days: critical infrastructure. 10 days: death or serious harm. 15 days: all other incidents.',w:true}],showErg:false}
+];
+
+const RESULTS={
+  result_deployer:{badge:'Deployer high-risk obligations',bcls:'rr',title:'Your Deployer High-Risk obligations',desc:'As a deployer you face mandatory obligations under Chapter III of the EU AI Act, in addition to any obligations from the original provider.',steps:[{n:1,t:'Fundamental Rights Impact Assessment (FRIA)',d:'Article 27 — Required for public sector and specified private deployers before deployment.',c:'sr'},{n:2,t:'Designate and train human oversight personnel',d:'Article 14 — Persons with authority to oversee and intervene.',c:'sr'},{n:3,t:'Serious incident reporting procedure',d:'Article 26(5) — Report to provider and market surveillance authority.',c:'sr'},{n:4,t:'Maintain logs for 6 months',d:'Article 26(6) — Retain system-generated logs.',c:'sr'},{n:5,t:'Inform individuals subject to AI decisions',d:'Article 26(10) — Notify persons subject to high-risk AI decisions.',c:'sr'}]},
+  no_obligation:{badge:'No high-risk obligations',bcls:'rr',title:'No high-risk obligations identified',desc:'Document this determination carefully — self-classification without analysis is not defensible under market surveillance review.',steps:[{n:1,t:'Document your classification rationale',d:'Record why your system does not fall within Annex III.',c:'sr'},{n:2,t:'Article 50 transparency obligations may still apply',d:'Applies if your system interacts with natural persons or generates synthetic content.',c:'sr'},{n:3,t:'Reassess if context changes',d:'Reclassify if the system is substantially modified or redeployed.',c:'sr'},{n:4,t:'Consider voluntary ISO 42001 governance',d:'Provides an audit-ready governance foundation.',c:'sb'}]},
+  complicated:{badge:'Requires further expert analysis',bcls:'rr',title:'Your situation requires further expert analysis',desc:'A GPAI model deployed as an autonomous agent in a high-risk use case creates layered obligations. No simple compliance path exists — seek specialist advice.',steps:[{n:1,t:'Map your role in the AI value chain',d:'Provider, agent integrator, or deployer — each has distinct obligations.',c:'sr'},{n:2,t:'Conduct an external action inventory',d:'List all external systems, APIs and data flows the agent can access.',c:'sr'},{n:3,t:'Assess human oversight feasibility',d:'Article 14 requires oversight commensurate with risk and autonomy.',c:'sr'},{n:4,t:'Engage qualified legal and technical counsel',d:'Seek specialised EU AI Act advice before market placement.',c:'sr'}]}
+};
+
+// ══════════════════════════════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════════════════════════════
+let hist=[],cur='entity',ans={},sel=[],instrStep=0,inInstr=false;
+const INSTR_ORDER=['qms','docs','logs','conformity','ce','register','restrict'];
+function isInstr(id){return INSTR_ORDER.includes(id)}
+
+// ══════════════════════════════════════════════════════════════════
+// PAGE NAVIGATION
+// ══════════════════════════════════════════════════════════════════
+function home(){document.getElementById('pt').classList.remove('on');document.getElementById('ph').classList.add('on')}
+function startTool(){document.getElementById('ph').classList.remove('on');document.getElementById('pt').classList.add('on');hist=[];cur='entity';ans={};sel=[];instrStep=0;inInstr=false;renderMap();rQ()}
+function openNav(){window.open('pren18286_navigator.html','_blank')}
+
+
+
+// ══════════════════════════════════════════════════════════════════
+// JOURNEY MAP
+// ══════════════════════════════════════════════════════════════════
+function getNodeState(id){
+  if(inInstr&&id===INSTR_ORDER[instrStep])return'active';
+  if(inInstr&&INSTR_ORDER.indexOf(id)<instrStep)return'done';
+  if(!inInstr&&id===cur)return'active';
+  if(hist.includes(id))return'done';
+  return'pend';
+}
+function renderMap(){
+  const groups={};
+  MAP_NODES.forEach(n=>{if(!groups[n.g])groups[n.g]=[];groups[n.g].push(n)});
+  let h='<div class="map-title">Journey map</div>';
+  Object.entries(groups).forEach(([grp,nodes])=>{
+    h+=`<div class="map-group"><div class="map-group-label">${grp}</div>`;
+    nodes.forEach((n,i)=>{
+      const st=getNodeState(n.id);const isR=n.t==='rr';const isI=n.t==='i';
+      let dc=st==='done'?'done':st==='active'?'active':isI?'instr':n.t==='rr'?'rr':'pend';
+      const icon=st==='done'?'✓':st==='active'?'▶':'·';
+      if(i>0)h+=`<div class="mconn ${st==='done'?'done':''}"></div>`;
+      h+=`<div class="mn ${st} ${isR?'terminal':''}" ${!isR?`onclick="jumpTo('${n.id}')"`:''}><div class="md ${dc}" style="font-size:${st==='done'||st==='active'?'8':'10'}px">${icon}</div><div class="mlab">${n.l}</div></div>`;
+    });
+    h+='</div>';
+  });
+  document.getElementById('mapPanel').innerHTML=h;
+}
+
+function jumpTo(id){
+  if(isInstr(id)){instrStep=INSTR_ORDER.indexOf(id);inInstr=true;renderMap();showInstr();return}
+  if(!QSTEPS[id])return;
+  const ord=['entity','modified','gpai_highrisk','highrisk','agent','deployer_hr','deployer_hr2','deployer_hr3'];
+  const ti=ord.indexOf(id);if(ti===-1)return;
+  if(inInstr){inInstr=false;instrStep=0}
+  const nh=[];for(let i=0;i<ti;i++)if(ans[ord[i]]!==undefined)nh.push(ord[i]);
+  hist=nh;cur=id;sel=[];renderMap();rQ();
+}
+
+// ══════════════════════════════════════════════════════════════════
+// QUESTIONS
+// ══════════════════════════════════════════════════════════════════
+function rQ(){
+  const q=QSTEPS[cur];
+  if(!q){if(isInstr(cur)){inInstr=true;instrStep=INSTR_ORDER.indexOf(cur);renderMap();showInstr();return}rRes(cur);return}
+  inInstr=false;sel=[];renderMap();
+  const L='ABCDEF';
+  document.getElementById('qa').innerHTML=`<div class="qcard">
+    <div class="qstep">${q.step}</div>
+    <div class="qtitle">${q.q}</div>
+    ${q.hint?`<div class="qhint">${q.hint}</div>`:''}
+    <div class="opts">${q.opts.map((o,i)=>`<button class="opt" onclick="pick(${i})" id="o${i}"><span class="oltr">${L[i]}</span><span><span style="font-weight:600">${o.t}</span>${o.d?`<span style="font-size:11px;opacity:.7;display:block;margin-top:2px">${o.d}</span>`:''}</span></button>`).join('')}</div>
+    <div class="brow">
+      <button class="pbtn" onclick="back()" ${hist.length===0?'disabled':''}>← Previous</button>
+      <button class="nbtn dim" id="nb" onclick="adv()">Next →</button>
+    </div>
+  </div>`;
+  if(ans[cur]!==undefined){const i=ans[cur];const el=document.getElementById('o'+i);if(el){el.classList.add('sel');sel=[i];document.getElementById('nb').classList.remove('dim')}}
+}
+
+function pick(i){sel=[i];document.querySelectorAll('.opt').forEach(e=>e.classList.remove('sel'));document.getElementById('o'+i).classList.add('sel');document.getElementById('nb').classList.remove('dim')}
+
+function adv(){
+  if(!sel.length)return;
+  const q=QSTEPS[cur];ans[cur]=sel[0];hist.push(cur);
+  const nxt=q.next(sel[0]);cur=nxt;
+  if(QSTEPS[cur])rQ();else if(isInstr(cur)){inInstr=true;instrStep=INSTR_ORDER.indexOf(cur);renderMap();showInstr()}else rRes(cur);
+}
+function back(){if(inInstr){instrBack();return}if(!hist.length)return;cur=hist.pop();rQ();renderMap()}
+
+// ══════════════════════════════════════════════════════════════════
+// INSTRUCTION CARDS
+// ══════════════════════════════════════════════════════════════════
+function showInstr(){
+  const s=PROVIDER_STEPS[instrStep];if(!s){rRes('result_provider');return}
+  const dots=PROVIDER_STEPS.map((_,i)=>`<div class="pd ${i<instrStep?'d':i===instrStep?'a':''}"></div>`).join('');
+  const checks=s.checks.map(c=>`<div class="ci-item ${c.w?'r':'g'}"><div class="cik ${c.w?'r':'g'}">${c.w?'!':'✓'}</div><span>${c.t}</span></div>`).join('');
+  const ergBtn=s.showErg?`<button class="erg-btn" onclick="openNav()"><svg viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="5" height="5" rx="1" fill="currentColor"/><rect x="9" y="2" width="5" height="5" rx="1" fill="currentColor"/><rect x="2" y="9" width="5" height="5" rx="1" fill="currentColor"/><rect x="9" y="9" width="5" height="5" rx="1" fill="currentColor"/></svg>Essential Requirements Guidance</button>`:'';
+  renderMap();
+  document.getElementById('qa').innerHTML=`<div class="icard">
+    <div class="i-hdr"><div class="i-num ${s.id==='restrict'?'red':''}">${s.num}</div><div><div class="i-tag">${s.tag}</div></div></div>
+    <span class="i-ref">${s.ref}</span>
+    <div class="i-title">${s.title}</div>
+    <div class="i-body">${s.body}</div>
+    ${ergBtn}
+    <div class="slbl">What you need to do</div>
+    <div class="cl-list">${checks}</div>
+    <div class="brow">
+      <button class="pbtn" onclick="instrBack()" ${instrStep===0&&hist.length===0?'disabled':''}>← Previous</button>
+      <div class="pdots">${dots}</div>
+      <button class="nbtn" onclick="instrNext()">${instrStep===PROVIDER_STEPS.length-1?'Finish →':'Next →'}</button>
+    </div>
+  </div>`;
+}
+function instrNext(){if(instrStep<PROVIDER_STEPS.length-1){instrStep++;renderMap();showInstr()}else{inInstr=false;renderMap();rRes('result_provider')}}
+function instrBack(){if(instrStep>0){instrStep--;renderMap();showInstr()}else{inInstr=false;instrStep=0;if(hist.length>0){cur=hist.pop();rQ()}else{cur='entity';rQ()}}}
+
+// ══════════════════════════════════════════════════════════════════
+// RESULTS
+// ══════════════════════════════════════════════════════════════════
+function rRes(key){
+  if(key==='result_provider'){instrStep=PROVIDER_STEPS.length;inInstr=false;renderMap();
+    document.getElementById('qa').innerHTML=`<div class="rcard"><div class="rbadge rg">Provider compliance complete</div><div class="rtitle">All 7 provider obligations addressed</div><div class="rdesc">You have worked through all mandatory compliance steps for a High-Risk AI system Provider under the EU AI Act. Use the journey map to revisit any step at any time.</div><div class="disc">This assessment is indicative only. Always consult qualified legal counsel for interpretations of the EU AI Act text. High-risk obligations under Chapter III apply from August 2026.</div><button class="ab" onclick="startTool()">Start again</button><button class="ab o" onclick="home()">Back to home</button></div>`;
+    return;
+  }
+  const r=RESULTS[key]||RESULTS.no_obligation;cur=key;renderMap();
+  document.getElementById('qa').innerHTML=`<div class="rcard"><div class="rbadge ${r.bcls}">${r.badge}</div><div class="rtitle">${r.title}</div><div class="rdesc">${r.desc}</div><div class="slbl">Compliance steps</div><div class="rlist">${r.steps.map(s=>`<div class="ri ${s.c}"><span class="rsn">${s.n}</span><div><div style="font-weight:600;margin-bottom:2px">${s.t}</div><div style="font-size:.78rem;opacity:.82">${s.d}</div></div></div>`).join('')}</div><div class="disc">This assessment is indicative only. Always consult qualified legal counsel for interpretations of the EU AI Act text.</div><button class="ab" onclick="startTool()">Start again</button><button class="ab o" onclick="home()">Back to home</button></div>`;
+}
+
+// ══════════════════════════════════════════════════════════════════
+// prEN 18286 CLAUSE MAP & CONTENT
+// ══════════════════════════════════════════════════════════════════
+function renderClauseMap(){
+  let h='';
+  CLAUSES.forEach((c,i)=>{
+    const isOpen=openParents[c.id];
+    const isActive=selClauseId===c.id;
+    const hasChildActive=c.subs&&c.subs.some(s=>s.id===selClauseId);
+    if(i>0)h+=`<div class="cconn"></div>`;
+    h+=`<div class="cnode">
+      <button class="cnode-btn ${isActive?'cactive':''} ${hasChildActive&&!isActive?'cparent-active':''}" onclick="selClause('${c.id}',true)">
+        <div class="cnode-circle ${c.color}">${c.num}</div>
+        <div class="cnode-lbl">${c.label}</div>
+      </button>`;
+    if(c.subs&&c.subs.length&&(isOpen||hasChildActive)){
+      h+=`<div class="csubs">`;
+      c.subs.forEach(s=>{
+        h+=`<button class="csub-btn ${selClauseId===s.id?'cactive':''}" onclick="selClause('${s.id}',false)">
+          <div class="csub-circle">${s.num}</div>
+          <div class="csub-lbl">${s.label}</div>
+        </button>`;
+      });
+      h+=`</div>`;
+    }
+    h+='</div>';
+  });
+  document.getElementById('clauseMapBody').innerHTML=h;
+}
+
+function selClause(id,isParent){
+  let found=null;
+  CLAUSES.forEach(c=>{
+    if(c.id===id){found=c;if(isParent&&c.subs&&c.subs.length)openParents[c.id]=!openParents[c.id]}
+    if(c.subs)c.subs.forEach(s=>{if(s.id===id)found={...s,color:c.color,art:c.art}});
+  });
+  if(found)selClauseId=id;
+  renderClauseMap();renderClause();
+}
+
+function renderClause(){
+  const c=CLAUSE_LOOKUP[selClauseId];if(!c)return;
+  const xref=XREF[selClauseId]||{out:[],in:[],ext_out:[]};
+  const outHtml=xref.out&&xref.out.length?xref.out.map(id=>`<span class="ref-tag internal" onclick="selClause('${id}',false)">§${id} →</span>`).join(''):`<span class="ref-empty">None within prEN 18286</span>`;
+  const inHtml=xref.in&&xref.in.length?xref.in.map(id=>`<span class="ref-tag internal" onclick="selClause('${id}',false)">← §${id}</span>`).join(''):`<span class="ref-empty">No other clauses cite this</span>`;
+  const extHtml=xref.ext_out&&xref.ext_out.length?xref.ext_out.map(ref=>{
+    let cls='ext';
+    if(ref.startsWith('EU AI Act')||ref.startsWith('Art.')||ref.startsWith('Annex')||ref.startsWith('Regulation'))cls='aiact';
+    else if(ref.startsWith('ISO')||ref.startsWith('prEN')||ref.startsWith('IEC'))cls='iso';
+    return`<span class="ref-tag ${cls}">${ref}</span>`;
+  }).join(''):`<span class="ref-empty">None</span>`;
+  const reqsHtml=c.reqs.map(r=>`<div class="req-item"><div class="req-dot"></div><span>${r}</span></div>`).join('');
+  document.getElementById('clauseContent').innerHTML=`<div class="cc-card">
+    <div class="cc-hdr">
+      <div class="cc-badge ${c.color||'cc4'}">${c.num||c.id}</div>
+      <div class="cc-meta">
+        <div class="cc-numtag">prEN 18286:2025 · Clause ${c.num||c.id}</div>
+        <div class="cc-title">${c.label||c.title}</div>
+      </div>
+    </div>
+    <div class="cc-art-row"><span class="cc-art">${c.art||''}</span></div>
+    <div class="cc-body">${c.body}</div>
+    <div class="slbl" style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.5rem;color:#8890B0">Key requirements</div>
+    <div class="req-list" style="margin-bottom:.9rem">${reqsHtml}</div>
+  </div>
+  <div class="ref-grid">
+    <div class="ref-panel">
+      <div class="ref-ptitle">
+        <svg viewBox="0 0 12 12" fill="none"><path d="M6 1L11 6L6 11" stroke="#3a7bd5" stroke-width="1.5" stroke-linecap="round"/><path d="M1 6H11" stroke="#3a7bd5" stroke-width="1.5" stroke-linecap="round"/></svg>
+        References (cites)
+      </div>
+      <div>${outHtml}</div>
+    </div>
+    <div class="ref-panel">
+      <div class="ref-ptitle">
+        <svg viewBox="0 0 12 12" fill="none"><path d="M6 11L1 6L6 1" stroke="#7C3AED" stroke-width="1.5" stroke-linecap="round"/><path d="M11 6H1" stroke="#7C3AED" stroke-width="1.5" stroke-linecap="round"/></svg>
+        Referenced by
+      </div>
+      <div>${inHtml}</div>
+    </div>
+    <div class="ref-panel full">
+      <div class="ref-ptitle">
+        <svg viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="#D97706" stroke-width="1.5"/><path d="M6 4V6.5" stroke="#D97706" stroke-width="1.5" stroke-linecap="round"/><circle cx="6" cy="8.5" r=".75" fill="#D97706"/></svg>
+        External standards &amp; legislation
+      </div>
+      <div>${extHtml}</div>
+    </div>
+  </div>`;
+}
+
+// ══════════════════════════════════════════════════════════════════
+// AI CHAT
+// ══════════════════════════════════════════════════════════════════
+async function sendChat(){
+  const inp=document.getElementById('chatInput');
+  const msg=inp.value.trim();if(!msg)return;
+  inp.value='';
+  const msgs=document.getElementById('chatMsgs');
+  chatHistory.push({role:'user',content:msg});
+  msgs.innerHTML+=`<div class="msg user">${msg}</div>`;
+  const loadEl=document.createElement('div');loadEl.className='msg ai loading';loadEl.textContent='Searching prEN 18286...';msgs.appendChild(loadEl);msgs.scrollTop=msgs.scrollHeight;
+  document.getElementById('chatSend').disabled=true;
+  const c=CLAUSE_LOOKUP[selClauseId];
+  const ctx=c?`Currently viewing clause ${c.num||c.id} — "${c.label||c.title}". Summary: ${c.body} Requirements: ${c.reqs.join('; ')}`:'Browsing the prEN 18286 clause navigator.';
+  const sys=`You are an expert on prEN 18286:2025 (Quality Management System for High-Risk AI systems under the EU AI Act). Answer questions precisely and concisely based on the standard. Reference specific clause numbers. ${ctx} Keep answers under 120 words. Do not reproduce verbatim text.`;
+  try{
+    const resp=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:200,system:sys,messages:chatHistory})});
+    const data=await resp.json();
+    const reply=data.content&&data.content[0]?data.content[0].text:'Unable to retrieve an answer. Please try again.';
+    loadEl.remove();chatHistory.push({role:'assistant',content:reply});
+    msgs.innerHTML+=`<div class="msg ai">${reply}</div>`;
+  }catch(e){loadEl.remove();msgs.innerHTML+=`<div class="msg ai">Unable to reach the AI service. Please check your connection.</div>`;}
+  document.getElementById('chatSend').disabled=false;msgs.scrollTop=msgs.scrollHeight;
+}
+</script>
+</body>
+</html>
