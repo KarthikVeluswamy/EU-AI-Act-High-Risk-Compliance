@@ -92,9 +92,9 @@ html,body{height:100%;font-family:'DM Sans',sans-serif;background:#F4F6FB;color:
   <div class="foot">
     <p>This tool is for informational purposes only. Always consult qualified legal counsel for interpretations of the EU AI Act text.</p>
     <div class="crow">
-      <a class="cl" href="https://linkedin.com/in/placeholder" target="_blank"><div class="ci li">in</div><span>LinkedIn</span></a>
-      <a class="cl" href="https://substack.com/placeholder" target="_blank"><div class="ci ss">S</div><span>Substack</span></a>
-      <a class="cl" href="mailto:your@email.com"><div class="ci ml">@</div><span>your@email.com</span></a>
+      <a class="cl" href="https://www.linkedin.com/in/karthik-veluswamy-52063218/" target="_blank"><div class="ci li">in</div><span>LinkedIn</span></a>
+      <a class="cl" href="https://substack.com/@karthikveluswamy" target="_blank"><div class="ci ss">S</div><span>Substack</span></a>
+      <a class="cl" href="karthik25.velu@gmail.com"><div class="ci ml">@</div><span>karthik25.velu@gmail.com</span></a>
     </div>
   </div>
 </div>
@@ -107,24 +107,24 @@ const CHAPTERS = [
   { id:'4',  num:'4',  label:'Quality Management System', short:'QMS',
     color:'#1D4ED8', bg:'#DBEAFE', border:'#3B82F6',
     art:'Art. 17',
-    body:'Establishes, documents, implements and maintains a QMS covering the full AI system lifecycle. The QMS is the governance container that all other compliance instruments plug into.',
+    body:'Establishes, documents, implements and maintains a QMS covering the full AI system lifecycle. The QMS is the product safety container that all other compliance standards plug into.',
     reqs:['4.1 General — establish the QMS, identify internal and external issues relevant to purpose','4.2 Understanding interested parties — deployers, affected persons, competent authorities, notified bodies','4.3 Scope — determine QMS scope considering context, interested parties, and AI system lifecycle','4.4 Regulatory compliance strategy — identify all Art. 9–15 essential requirements and map compliance approaches','4.5 Documented information — control QMS documentation accessible to notified bodies and authorities'],
     subs:[
       { id:'4.1', num:'4.1', label:'General', art:'Art. 17',
         body:'The provider shall establish, document, implement and maintain a QMS and continually improve its effectiveness.',
-        reqs:['Establish and implement a QMS covering the full AI system lifecycle','Continually improve QMS effectiveness based on monitoring and audit results','Ensure QMS covers all AI systems within the defined scope'] },
-      { id:'4.2', num:'4.2', label:'Understanding interested parties', art:'Art. 17',
-        body:'The provider shall determine relevant interested parties and their requirements as they relate to the QMS and AI system lifecycle.',
-        reqs:['Identify interested parties: deployers, affected persons, competent authorities, notified bodies','Determine relevant requirements of each interested party','Monitor and review information about interested parties and their requirements'] },
+        reqs:['Establish and implement a QMS covering the full AI system lifecycle','Continually improve QMS effectiveness based on monitoring and audit results','Ensure QMS covers all the regulatory requirements within the defined scope'] },
+      { id:'4.2', num:'4.2', label:'Idenifying Regulatory Requirements', art:'Art. 17',
+        body:'The provider shall determine the regulatory requirements',
+        reqs:['The regulatory requirements should be continously reviewed','The regulatory requrirements should at least contain the essential requirements','The regulatory requirements need to be applicable at all points of the lifecycle'] },
       { id:'4.3', num:'4.3', label:'Scope of the QMS', art:'Art. 17',
         body:'The provider shall determine the boundaries and applicability of the QMS to establish its scope.',
-        reqs:['Determine scope considering internal and external issues identified in 4.1','Consider requirements of interested parties identified in 4.2','Consider AI systems, products, and services within the scope','Document and maintain the scope as documented information'] },
+        reqs:['Determine the AI systems that fall under the QMS ','The boundaries shall be determined based on regulatory requirements and intended purpose(Art. 8)'] },
       { id:'4.4', num:'4.4', label:'Regulatory compliance strategy', art:'Art. 17(1)(a)(e)',
-        body:'Establish a documented strategy identifying all applicable regulatory requirements and mapping compliance approaches, including harmonised standards or common specifications.',
-        reqs:['4.4.1 — Identify all applicable regulatory requirements for each AI system lifecycle phase','4.4.2 — Identify all essential requirements (Art. 9–15) applicable to each AI system','4.4.3 — Select compliance approaches: harmonised standards, common specifications, or other solutions','4.4.4 — Establish a regulatory compliance strategy and keep it current','Document strategy as part of QMS documented information (4.5)'] },
+        body:'Establish a documented strategy identifying all applicable regulatory requirements and mapping compliance approaches, including referenced standards or common specifications.',
+        reqs:['Determine a strategy to for identifying and complying with regulatory and essential requirements','4.4.2 — Identify all essential requirements (Art. 9–15) applicable to each AI system','4.4.3 — Select compliance approaches: harmonised standards, common specifications, or other solutions','Document strategy as part of QMS documented information (4.5)'] },
       { id:'4.5', num:'4.5', label:'Documented information', art:'Art. 11(1), Art. 17(1)(k)',
         body:'All QMS documentation shall be controlled, version-managed, and kept available for competent authorities and notified bodies throughout the required retention periods.',
-        reqs:['4.5.1 — Maintain QMS documentation covering scope, policy, objectives, and process descriptions','4.5.2 — Maintain operational documents supporting process execution','4.5.3 — Ensure changes to documented information are reviewed and approved','4.5.4 — Control documented information for suitability, protection, storage, retention, and access','Keep available to auditors, notified bodies, and competent authorities for required retention periods'] }
+        reqs:['4.5.1 — Maintain QMS documentation covering scope, policy, objectives, and process descriptions','4.5.2 — Maintain operational documents supporting QMS process execution','4.5.3 — Ensure changes to documented information are reviewed and approved','4.5.4 — Control documented information for suitability, protection, storage, retention, and access','Keep available to auditors, notified bodies, and competent authorities for required retention periods'] }
     ]
   },
   { id:'5',  num:'5',  label:'Management Responsibility', short:'Leadership',
@@ -133,15 +133,15 @@ const CHAPTERS = [
     body:'Top management must demonstrate leadership and commitment to the QMS, establish an AI quality policy, and ensure appropriate roles, responsibilities and authorities are defined and communicated.',
     reqs:['5.1 Leadership and commitment — accountability for QMS effectiveness','5.2 AI quality policy — establish, communicate, and maintain policy aligned to strategic direction','5.3 Roles, responsibilities and authorities — assign and communicate roles for AI system quality'],
     subs:[
-      { id:'5.1', num:'5.1', label:'Leadership and commitment', art:'Art. 17(1)(m)',
+      { id:'5.1', num:'5.1', label:'General', art:'Art. 17(1)(m)',
         body:'Top management shall demonstrate leadership and commitment with respect to the QMS.',
-        reqs:['Take accountability for the effectiveness of the QMS','Ensure the QMS achieves its intended results','Direct and support personnel to contribute to QMS effectiveness','Promote regulatory compliance and continual improvement'] },
+        reqs:['Take accountability for the effectiveness of the QMS','Ensure the QMS achieves its intended results','Direct resources and support personnel to contribute to QMS effectiveness','Establish a quality policy and its objectives'] },
       { id:'5.2', num:'5.2', label:'AI quality policy', art:'Art. 17(1)(m)',
-        body:'Top management shall establish, implement and maintain a quality policy that is appropriate to the purpose and context of the organisation.',
-        reqs:['Establish a quality policy appropriate to the regulatory context','Include a commitment to satisfy applicable regulatory requirements','Include a commitment to continual improvement of the QMS','Communicate and make available to relevant interested parties'] },
+        body:'Top management shall establish, implement and maintain a quality policy that is appropriate to the purpose and context of the AI product.',
+        reqs:['Establish a quality policy that leads to quality objectives','Include a commitment to satisfy applicable regulatory requirements','Include a commitment to continual improvement of the QMS','Communication of the policy is made to the relevant personnel'] },
       { id:'5.3', num:'5.3', label:'Roles, responsibilities and authorities', art:'Art. 17(1)(m)',
         body:'Top management shall ensure responsibilities and authorities for relevant roles are assigned, communicated and understood.',
-        reqs:['5.3.1 — Assign roles ensuring QMS conforms to requirements','5.3.2 — Designate a management representative responsible for QMS','5.3.3 — Define roles for each AI system lifecycle phase','Ensure roles include competences necessary to understand regulatory requirements'] }
+        reqs:['Assign roles with expertise ensuring QMS conforms to requirements','Roles must be linked to the Quality policy','Roles need to have responsibility towards risk management, cyber sec, QMS','Ensure roles include competences necessary to understand regulatory requirements'] }
     ]
   },
   { id:'6',  num:'6',  label:'Planning', short:'Planning',
@@ -150,12 +150,12 @@ const CHAPTERS = [
     body:'Plan actions to address risks and opportunities, establish quality objectives, and determine the processes necessary to achieve them across the AI system lifecycle.',
     reqs:['6.1 Actions to address risks and opportunities — QMS-level risk planning','6.2 Quality objectives and planning — measurable, monitored objectives aligned to quality policy'],
     subs:[
-      { id:'6.1', num:'6.1', label:'Actions to address risks and opportunities', art:'Art. 17(1)',
+      { id:'6.1', num:'6.1', label:'Actions to address risks to QMS', art:'Art. 17(1)',
         body:'When planning for the QMS, the provider shall consider issues from 4.1 and requirements from 4.2, determine risks and opportunities, and plan actions to address them.',
-        reqs:['Determine QMS-level risks and opportunities that could affect intended results','Plan actions to address identified risks and opportunities','Integrate and implement actions into QMS processes','Evaluate effectiveness of implemented actions'] },
+        reqs:['Determine risks that could affect intended results of QMS','Plan actions to address identified risks and evaluate the implemented actions','Prevent or reduce the undesired affects of applying the QMS'] },
       { id:'6.2', num:'6.2', label:'Quality objectives and planning', art:'Art. 17(1)',
-        body:'Establish quality objectives at relevant functions, levels and processes needed for the QMS.',
-        reqs:['6.2.1 — Establish measurable quality objectives consistent with the quality policy','6.2.2 — Plan how to achieve objectives: resources, responsibilities, timelines, completion criteria, evaluation methods','Quality objectives shall be measurable, take into account applicable regulatory requirements','Maintain documented information on quality objectives'] }
+        body:'Establish quality objectives at relevant functions, levels, processes and the planning to achieve the objectives .',
+        reqs:['6.2.1 — Establish verifiable quality objectives consistent with the quality policy','6.2.2 — Plan how to achieve objectives: resources, responsibilities, timelines, completion criteria, evaluation methods','Establish the process to achieve the quality objectives','Maintain documented information on quality objectives'] }
     ]
   },
   { id:'7',  num:'7',  label:'Support', short:'Support',
@@ -166,13 +166,13 @@ const CHAPTERS = [
     subs:[
       { id:'7.1', num:'7.1', label:'Resources', art:'Art. 17(1)(l)',
         body:'The provider shall determine and provide the resources needed for the establishment, implementation, maintenance and continual improvement of the QMS.',
-        reqs:['Determine and provide necessary human resources and their competences','Provide adequate organisational infrastructure and work environment','Provide time resources for AI system lifecycle activities','Ensure measures for security of supply where relevant (see 9.2)'] },
+        reqs:['Determine and provide necessary human resources with relevant competences','Provide adequate organisational infrastructure and work environment','Provide time resources for AI system lifecycle activities'] },
       { id:'7.2', num:'7.2', label:'Competence', art:'Art. 17(1)(j)',
         body:'The provider shall determine necessary competences of personnel doing work that affects quality objectives and AI system quality.',
-        reqs:['Determine necessary competences for all roles affecting quality','Ensure personnel are competent based on education, training, or experience','Document processes for establishing, validating, training, supervising, and maintaining competences','Ensure personnel are familiar with applicable regulatory requirements and intended purpose'] },
+        reqs:['Determine necessary competences for all roles affecting quality','Ensure personnel are competent based on education, training, or experience','Asses how the competency requirements are affected by intended purpose and reasonably forseeable misuse','Ensure personnel are familiar with applicable regulatory requirements and intended purpose'] },
       { id:'7.3', num:'7.3', label:'Communication', art:'Art. 17(1)(j)',
         body:'The provider shall establish and implement documented communication processes for internal and external communication relevant to the QMS.',
-        reqs:['Establish communication processes: what, when, with whom, how, who','Ensure relevant personnel are familiar with their duties related to quality management','Ensure communication covers regulatory requirements and quality objectives'] }
+        reqs:['Establish communication processes: what, when, with whom, how, who','Ensure relevant personnel are familiar with their duties related to quality management','Establish communication process for stakeholders in the supply chain and eco-system'] }
     ]
   },
   { id:'8',  num:'8',  label:'Product Realization', short:'Operations',
@@ -186,22 +186,22 @@ const CHAPTERS = [
         reqs:['8.1.1 — Risk management planning: scope, criteria, methodology','8.1.2 — Risk identification: hazards from intended use and reasonably foreseeable misuse','8.1.3 — Risk estimation and evaluation: probability, severity, and acceptable risk thresholds','8.1.4 — Risk control: implement and verify risk control measures','8.1.5 — Residual risk evaluation: verify that residual risks are acceptable','Conduct risk management review at each lifecycle stage and when changes occur'] },
       { id:'8.2', num:'8.2', label:'AI system lifecycle planning', art:'Art. 17(1)(b)',
         body:'The provider shall plan, implement and control the AI system lifecycle processes needed to produce the AI system.',
-        reqs:['Determine lifecycle stages applicable to each AI system','Establish processes, responsibilities, and controls for each stage','Plan verification and validation activities','Document lifecycle plans and maintain documented information','Control planned changes and review consequences of unintended changes'] },
+        reqs:['Determine lifecycle stages applicable to each AI system','Establish processes, responsibilities, and controls for each stage','Process shall ensure requirements, quality and data management is met','Document lifecycle plans and maintain documented information','Control planned changes and review consequences of unintended changes'] },
       { id:'8.3', num:'8.3', label:'Inception, design and development', art:'Art. 17(1)(b)',
         body:'Covers AI system requirements determination, architecture design, and development controls. AI system requirements must translate regulatory requirements into explicit, testable features.',
-        reqs:['8.3.1 Inception — determine intended purpose, consult interested parties on fundamental rights (Annex A)','8.3.2 Design and development — establish design controls','8.3.2.1 AI system requirements — accuracy, robustness, cybersecurity, transparency, oversight, data and data governance','8.3.2.2 Architecture and design — determine AI system architecture','8.3.3 Verification — verify at each design and development stage that requirements are met'] },
+        reqs:['Inception — determine intended purpose, consult interested parties on fundamental rights (Annex A)','Design and development — establish design controls','AI system requirements — accuracy, robustness, cybersecurity, transparency, oversight, data and data governance','Review of the requirements shall be conducted and documented'] },
       { id:'8.4', num:'8.4', label:'Verification and validation', art:'Art. 17(1)(c)(d)',
         body:'Establish and execute verification and validation activities for each AI system. Verification checks that requirements are met; validation confirms fitness for intended purpose.',
-        reqs:['8.4.1 AI system verification — test procedures and acceptance criteria, reference prEN 18229-2','8.4.2 AI system validation — confirm the AI system meets its intended purpose','Document V&V results as part of technical documentation','Ensure testing covers accuracy, robustness, cybersecurity, and performance metrics','Retain all V&V records as part of Annex IV technical documentation'] },
-      { id:'8.5', num:'8.5', label:'Data governance', art:'Art. 10 + prEN 18284',
+        reqs:['AI system verification — test procedures and acceptance criteria, reference prEN 18229-2','AI system validation — confirm the AI system meets its intended purpose','Document V&V results as part of technical documentation','Retain all V&V records as part of Annex IV technical documentation'] },
+      { id:'8.5', num:'8.5', label:'Data Management', art:'Art. 10 + prEN 18284',
         body:'Implement data management processes covering the full data lifecycle from acquisition through decommission. Applies to training, validation, and test datasets.',
-        reqs:['Establish data acquisition and collection processes with documented provenance','Implement data quality controls: relevance, representativeness, completeness, and correctness','Apply bias identification and mitigation measures per prEN 18283','Document data governance procedures as part of technical documentation','8.5.1 — Data acquisition through decommission lifecycle coverage','8.5.2 — Data quality assessment and validation'] },
-      { id:'8.6', num:'8.6', label:'Deployment', art:'Art. 17(1)(f)',
-        body:'Control the deployment of AI systems, ensuring conditions for deployment are established and documented, and that deployers receive adequate instructions for use.',
-        reqs:['Establish and document conditions for deployment','Plan and control handover activities to operation','Prepare and provide instructions for use to deployers','Ensure deployment conditions align with the intended purpose and risk management outcomes'] },
-      { id:'8.7', num:'8.7', label:'Technical documentation', art:'Art. 11, Art. 13 + Annex IV',
+        reqs:['Establish data acquisition and collection processes with documented provenance','Implement data quality controls: relevance, representativeness, completeness, and correctness','Apply bias identification and mitigation measures per prEN 18283','Document data governance procedures as part of technical documentation','Data quality assessment and validation'] },
+      { id:'8.6', num:'8.6', label:'Evironmental Sustainability', art:'Art. 1',
+        body:'Consider environmental impact in the design',
+        reqs:['Establish process to identify and mitigate environmental impacts','support other stakeholders in achieving requirements regarding environment '] },
+      { id:'8.7', num:'8.7', label:'Product documentation', art:'Art. 11, Art. 13 + Annex IV',
         body:'Prepare and maintain technical documentation before market placement. Must follow Annex IV format and be available to market surveillance authorities for 10 years.',
-        reqs:['8.7.1 Technical documentation — Annex IV format: general description, design, development, datasets, risk management, oversight, accuracy, DoC','8.7.2 Instructions for use — enable deployers to implement correctly: capabilities, limitations, conditions of use, human oversight requirements, instructions for operation and monitoring','Keep documentation current throughout the AI system lifecycle','Retain for 10 years after market placement or last system in service'] }
+        reqs:['Technical documentation — Annex IV format: general description, design, development, datasets, risk management, oversight, accuracy, DoC',' Instructions for use — enable deployers to implement correctly: capabilities, limitations, conditions of use, human oversight requirements, instructions for operation and monitoring','Keep documentation current throughout the AI system lifecycle','Retain for 10 years after market placement or last system in service'] }
     ]
   },
   { id:'9',  num:'9',  label:'Operation and Control', short:'Operations',
@@ -210,21 +210,24 @@ const CHAPTERS = [
     body:'Covers post-market monitoring, supplier controls, logging, record-keeping, and serious incident reporting. Ongoing operational obligations throughout the AI system\'s active lifecycle.',
     reqs:['9.1 General — overall operational framework','9.2 Supplier controls — evaluate, select, monitor external suppliers','9.3 Quality objectives review — review progress against objectives','9.4 Post-market monitoring and logging — systematic monitoring and automatic log capture','9.5 Serious incident reporting — 2/10/15-day timelines to competent authorities'],
     subs:[
-      { id:'9.1', num:'9.1', label:'General', art:'Art. 17(1)(h)',
-        body:'The provider shall plan, implement, control, and maintain processes needed to meet requirements for the provision of the AI system and the QMS operations.',
-        reqs:['Establish criteria for processes and accept criteria for products and services','Implement control of processes according to criteria','Keep documented information to the extent necessary to ensure processes carried out as planned'] },
-      { id:'9.2', num:'9.2', label:'Supplier and procurement controls', art:'Art. 17(1)(l)',
+      { id:'9.1', num:'9.1', label:'Deployment, operation and Monitoring', art:'Art. 17(1)(h)',
+        body:'Process should be in place that enable services to be managed efficiently',
+        reqs:['Version management and traceability of the AI system is maintained','The AI system can be traced to all stakeholders in the supplychain','Support services shall be identified and provided to the stakeholders'] },
+      { id:'9.2', num:'9.2', label:'Supply Chain', art:'Art. 25',
         body:'Evaluate, select, and monitor external suppliers of AI components, data, and services. Controls must be proportionate to the risk profile of the supplied item.',
-        reqs:['9.2.1 — Determine types and extent of controls to apply to external provision','9.2.2 — Evaluate and select suppliers based on regulatory compliance capability','9.2.3 — Monitor supplier performance continuously and re-evaluate periodically','9.2.4 — Communicate quality, cybersecurity, and regulatory requirements to suppliers','9.2.5 — Determine extent of control based on risk','Maintain documented evidence of all supplier evaluation and monitoring activities'] },
-      { id:'9.3', num:'9.3', label:'Quality objectives review', art:'Art. 17(1)(a)',
-        body:'The provider shall review progress against quality objectives at planned intervals.',
-        reqs:['9.3.1 — Determine what, when, and how to review progress against quality objectives','9.3.2 — Conduct reviews and document results','9.3.3 — Take corrective actions where objectives are not being met','Retain documented information of the reviews'] },
+        reqs:['Evaluate and select suppliers based on regulatory compliance capability','Monitor supplier performance continuously and re-evaluate periodically','Communicate quality, cybersecurity, and regulatory requirements to suppliers','Determine extent of control on suppliers based their ability to meet its QMS requirements','Maintain documented evidence of all supplier evaluation and monitoring activities'] },
+      { id:'9.3', num:'9.3', label:'Changes to AI Systems', art:'Art. 17(1)(h)',
+        body:'Have a change management system in place for post deployment.',
+        reqs:['Have process in place to review intended/uninted changes and its consequences','Have process to review changes such that risk is not increased'] },
       { id:'9.4', num:'9.4', label:'Post-market monitoring and logging', art:'Art. 12, Art. 72',
         body:'Implement systematic post-market monitoring and automatic logging. Logs must capture sufficient information to enable incident investigation and regulatory review.',
-        reqs:['Establish a post-market monitoring plan collecting data from deployers and users','Implement automatic logging: timestamp, input data reference, output, version, involved persons (per prEN ISO/IEC 24970)','Retain logs for minimum 6 months (3 years for law enforcement use cases)','Analyse monitoring data and feed results into the risk management review cycle (8.1)','Document post-market monitoring procedures and retain monitoring results'] },
+        reqs:['Establish a post-market monitoring plan collecting data from deployers and users','Implement automatic logging: timestamp, input data reference, output, version, involved persons (per prEN ISO/IEC 24970)','Retain logs for minimum 6 months (3 years for law enforcement use cases)','Analyse monitoring data and feed results into the risk management review cycle (8.1)','Nonconformities shall be documented and addressed'] },
       { id:'9.5', num:'9.5', label:'Serious incident reporting', art:'Art. 73, Art. 26(5)',
         body:'Establish procedures to detect, assess, and report serious incidents within mandatory timelines. Deployers must receive reporting instructions in the instructions for use.',
-        reqs:['Establish procedures to detect and assess whether incidents meet "serious incident" threshold under Art. 73','Report to national competent authority: 2 days (critical infrastructure), 10 days (death or serious harm), 15 days (all other serious incidents)','Provide deployers with incident reporting instructions in the instructions for use (8.7.2)','Record and track all incidents, near-misses, and regulatory notifications','Implement corrective actions following serious incident analysis'] }
+        reqs:['Establish procedures to detect and assess whether incidents meet "serious incident" threshold under Art. 73','Report to national competent authority: 2 days (critical infrastructure), 10 days (death or serious harm), 15 days (all other serious incidents)','Provide deployers with incident reporting instructions in the instructions for use (8.7.2)','Record and track all incidents, near-misses, and regulatory notifications','Implement corrective actions following serious incident analysis'] },
+      { id:'9.6', num:'9.6', label:'Nonconformities', art:'Art. 73, Art. 26(5)',
+        body:'All Nonconformities shall be detected, identified and managed',
+        reqs:['Appropriate action shall be taken against any nonconformities','Determine the extent and severity of the nonconformities','Document the process and actions'] }  
     ]
   },
   { id:'10', num:'10', label:'Performance Evaluation', short:'Evaluation',
@@ -238,13 +241,13 @@ const CHAPTERS = [
         reqs:['Determine what needs to be monitored and measured','Determine methods for monitoring, measurement, analysis and evaluation','Determine when monitoring and measuring shall be performed','Analyse and evaluate results from monitoring and measurement','Retain documented information as evidence of the results'] },
       { id:'10.2', num:'10.2', label:'Review', art:'Art. 17(1)',
         body:'Conduct internal audits and management reviews at planned intervals to provide information about the QMS effectiveness.',
-        reqs:['10.2.1 Internal audit — audit programme covering all relevant QMS processes','10.2.2 Management review — review QMS suitability, adequacy, and effectiveness at planned intervals','10.2.3 Management review inputs — audit results, nonconformities, monitoring data, changes, objectives progress, stakeholder feedback','10.2.4 Management review outputs — decisions on improvement opportunities and changes needed','Retain documented information of internal audits and management reviews'] },
+        reqs:['Internal audit — audit programme covering the effectiveness of QMS processes','Have in place a mechanism where concerns raised internally are addressed and personnel anonymity and identity is protected',' Structtured way to handle Management review inputs and outputs','Retain documented information of internal audits and management reviews'] },
       { id:'10.3', num:'10.3', label:'Improvement', art:'Art. 17(1)',
         body:'Identify and implement improvements to the QMS to fulfil applicable regulatory requirements and enhance performance.',
-        reqs:['When nonconformity occurs: react, evaluate need for corrective action, implement actions','Corrective actions shall be appropriate to the effects of nonconformities','Retain documented information of nonconformity and corrective action results','Seek continual improvement opportunities in QMS processes and AI system performance'] },
+        reqs:['Seek continual improvement opportunities in QMS processes and AI system performance'] },
       { id:'10.4', num:'10.4', label:'Planning of changes', art:'Art. 17(1)',
         body:'When the provider determines the need for changes to the QMS, the changes shall be carried out in a planned manner.',
-        reqs:['Consider purpose of changes and their potential consequences','Consider integrity of the QMS during changes','Consider availability of resources to implement changes','Consider allocation or reallocation of responsibilities and authorities','Assess impact of changes on regulatory compliance and technical documentation'] }
+        reqs:['Consider purpose of changes and their potential consequences','Consider integrity of the QMS during changes','Assess impact of changes on the AI System and QMS'] }
     ]
   },
   { id:'ZA', num:'ZA', label:'Annex ZA — AI Act Mapping', short:'Annex ZA',
@@ -258,42 +261,37 @@ const CHAPTERS = [
 
 // Cross-references: which clauses each clause cites (OUT) and which cite it (IN)
 const XREF = {
-  '4':   {out:['5','6','8.1','9','10'],       in:['5','6','7','8','9','10','ZA']},
-  '4.1': {out:['4.2','4.3','4.4','4.5'],      in:['4','5.1','6.1']},
-  '4.2': {out:['4.1','6.1'],                  in:['4.1','4.3','5.1']},
-  '4.3': {out:['4.1','4.2'],                  in:['4.1','4.4']},
-  '4.4': {out:['4.3','8.3','9.3'],            in:['4.3','4.5','8.5','9']},
-  '4.5': {out:['4.4','8.7','10.1'],           in:['4.4','8','9','10.2']},
-  '5':   {out:['4','6','7'],                  in:['4','6','ZA']},
-  '5.1': {out:['4.1','4.2','5.2'],            in:['5']},
-  '5.2': {out:['5.1','6.2'],                  in:['5','5.1']},
-  '5.3': {out:['5.2','8.2'],                  in:['5','5.2','ZA']},
-  '6':   {out:['4','8.1'],                    in:['5','8']},
-  '6.1': {out:['4.1','4.2'],                  in:['6']},
-  '6.2': {out:['5.2','9.3'],                  in:['6','9.3']},
-  '7':   {out:['4','9.2'],                    in:['4','5']},
-  '7.1': {out:['9.2'],                        in:['7','ZA']},
-  '7.2': {out:['7.1'],                        in:['7']},
-  '7.3': {out:['7.1'],                        in:['7','ZA']},
-  '8':   {out:['4.4','6','8.1','8.5','9.4'],  in:['4','6','ZA']},
-  '8.1': {out:['4','6','8.3','9.4'],          in:['6','8','ZA']},
-  '8.2': {out:['8.1','8.3'],                  in:['8']},
-  '8.3': {out:['8.1','8.4','8.5','8.7'],      in:['8','8.2','ZA']},
-  '8.4': {out:['8.3','8.7'],                  in:['8','8.3','ZA']},
-  '8.5': {out:['4.4','8.3','8.7'],            in:['8','8.3','ZA']},
-  '8.6': {out:['8.5','8.7'],                  in:['8']},
-  '8.7': {out:['4.5','8.4','8.6','9.4'],      in:['8','8.3','8.4','8.5','9.4','ZA']},
-  '9':   {out:['4','8.7','9.4','9.5'],        in:['4','8']},
-  '9.1': {out:['9.2'],                        in:['9']},
-  '9.2': {out:['7','9.1'],                    in:['7','9','ZA']},
-  '9.3': {out:['6.2','9.1'],                  in:['9','ZA']},
-  '9.4': {out:['8.7','9.3','9.5'],            in:['9','8.7','ZA']},
-  '9.5': {out:['9','9.4','8.7'],              in:['9','ZA']},
-  '10':  {out:['4.5','6'],                    in:['4','9']},
-  '10.1':{out:['6.2'],                        in:['10']},
-  '10.2':{out:['10.1','10.3'],               in:['10']},
-  '10.3':{out:['10.2'],                       in:['10','10.2']},
-  '10.4':{out:['10.3'],                       in:['10']},
+  
+  '4.1': {out:[],                             in:['10.4']},
+  '4.2': {out:['4.4'],                        in:['5.3','4.3','7.2','8.3']},
+  '4.3': {out:['4.2'],                        in:['4.5']},
+  '4.4': {out:['9.4','9.5','8.5','4.5'],      in:['4.2','5.2','6.1','8.5']},
+  '4.5': {out:['4.3','5.2','6.2'],            in:['4.4','8.3']},
+  '5.1': {out:['6.2','5.2'],                  in:[]},
+  '5.2': {out:['4.4','6.2','7.3'],            in:['4.5','5.1','6.2','10.2']},
+  '5.3': {out:['4.2','6.1','6.2','8.1','10.2'],  in:['9.5']},
+  '6.1': {out:['8.1','4.4'],                  in:['5.3']},
+  '6.2': {out:['5.2','10.2'],                 in:['4.5','5.1','5.2','5.3','10.2']},
+  '7.1': {out:[],                             in:['9.2']},
+  '7.2': {out:['4.2'],                        in:[]},
+  '7.3': {out:['9.5'],                        in:['5.2','9.6']},
+  '8.1': {out:['6.1','5.3'],                  in:[]},
+  '8.2': {out:['8.4','8.3','8.5','9.4'],      in:[]},
+  '8.3': {out:['4.2','4.5','ZA'],             in:['8.2',]},
+  '8.4': {out:['ZA'],                         in:['8.2']},
+  '8.5': {out:['4.4'],                        in:['8.2','4.4']},
+  '8.6': {out:[],                             in:[]},
+  '8.7': {out:['9.4'],                        in:['9.1']},
+  '9.1': {out:['8.7'],                        in:[]},
+  '9.2': {out:['7.1'],                        in:[]},
+  '9.3': {out:[],                             in:[]},
+  '9.4': {out:['9.6'],                        in:['4.4','8.7','8.2']},
+  '9.5': {out:['5.3'],                        in:['4.4','7.3']},
+  '9.6': {out:['7.3'],                        in:['9.4']},
+  '10.1':{out:[],                             in:[]},
+  '10.2':{out:['5.2','6.2'],                  in:['5.3','6.2']},
+  '10.3':{out:[],                             in:[]},
+  '10.4':{out:['4.1'],                        in:[]},
   'ZA':  {out:['4','5','8','9'],              in:[]}
 };
 
@@ -319,6 +317,7 @@ const EXT_REFS = {
   '9.2': ['EU AI Act Art. 17(1)(l)','prEN 18282 security by design'],
   '9.4': ['EU AI Act Art. 12','EU AI Act Art. 72','prEN 18229-1','prEN ISO/IEC 24970'],
   '9.5': ['EU AI Act Art. 73','EU AI Act Art. 26(5)'],
+  '9.6': ['EU AI Act Art. 73','EU AI Act Art. 26(5)'],
   '10':  ['EU AI Act Art. 17(1)','ISO 9001:2015 §9–10','ISO 42001 §9–10'],
   'ZA':  ['EU AI Act Art. 11','EU AI Act Art. 17','EU AI Act Art. 72','Regulation 2024/1689']
 };
@@ -426,36 +425,7 @@ function renderSVG() {
 
   let html = '';
 
-  // ── 1. Connection lines ──
-  if (posByID[selId]) {
-    const src = posByID[selId];
-    xref.out.forEach(tid => {
-      if (!posByID[tid]) return;
-      const t = posByID[tid];
-      const x1 = src.cx, y1 = src.bot;
-      const x2 = t.cx,   y2 = t.top;
-      const my = (y1 + y2) / 2;
-      html += `<path d="M${x1},${y1} C${x1},${my} ${x2},${my} ${x2},${y2}"
-        fill="none" stroke="#3B82F6" stroke-width="2" stroke-dasharray="5,3" opacity="0.82">
-        <animate attributeName="stroke-dashoffset" from="0" to="16" dur="0.9s" repeatCount="indefinite"/>
-      </path>
-      <polygon points="${x2},${y2} ${x2-4},${y2-8} ${x2+4},${y2-8}" fill="#3B82F6" opacity="0.9"/>`;
-    });
-    xref.in.forEach(tid => {
-      if (!posByID[tid]) return;
-      const s = posByID[tid];
-      const x1 = s.cx,   y1 = s.bot;
-      const x2 = src.cx, y2 = src.top;
-      const my = (y1 + y2) / 2;
-      html += `<path d="M${x1},${y1} C${x1},${my} ${x2},${my} ${x2},${y2}"
-        fill="none" stroke="#7C3AED" stroke-width="2" stroke-dasharray="5,3" opacity="0.82">
-        <animate attributeName="stroke-dashoffset" from="16" to="0" dur="0.9s" repeatCount="indefinite"/>
-      </path>
-      <polygon points="${x2},${y2} ${x2-4},${y2+8} ${x2+4},${y2+8}" fill="#7C3AED" opacity="0.9"/>`;
-    });
-  }
-
-  // ── 2. Draw each chapter group ──
+  // ── 1. Draw each chapter group first (boxes behind lines) ──
   groups.forEach(g => {
     const c = g.chap;
 
@@ -535,6 +505,37 @@ function renderSVG() {
     }
   });
 
+  // ── 2. Connection lines drawn on top of all boxes ──
+  if (posByID[selId]) {
+    const src = posByID[selId];
+    xref.out.forEach(tid => {
+      if (!posByID[tid]) return;
+      const t = posByID[tid];
+      const x1 = src.cx, y1 = src.bot;
+      const x2 = t.cx,   y2 = t.top;
+      const my = (y1 + y2) / 2;
+      html += `<path d="M${x1},${y1} C${x1},${my} ${x2},${my} ${x2},${y2}"
+        fill="none" stroke="#3B82F6" stroke-width="2.5" stroke-dasharray="5,3" opacity="1"
+        style="filter:drop-shadow(0 0 3px rgba(59,130,246,0.6))">
+        <animate attributeName="stroke-dashoffset" from="0" to="16" dur="0.9s" repeatCount="indefinite"/>
+      </path>
+      <polygon points="${x2},${y2} ${x2-5},${y2-9} ${x2+5},${y2-9}" fill="#3B82F6" opacity="1"/>`;
+    });
+    xref.in.forEach(tid => {
+      if (!posByID[tid]) return;
+      const s = posByID[tid];
+      const x1 = s.cx,   y1 = s.bot;
+      const x2 = src.cx, y2 = src.top;
+      const my = (y1 + y2) / 2;
+      html += `<path d="M${x1},${y1} C${x1},${my} ${x2},${my} ${x2},${y2}"
+        fill="none" stroke="#7C3AED" stroke-width="2.5" stroke-dasharray="5,3" opacity="1"
+        style="filter:drop-shadow(0 0 3px rgba(124,58,237,0.6))">
+        <animate attributeName="stroke-dashoffset" from="16" to="0" dur="0.9s" repeatCount="indefinite"/>
+      </path>
+      <polygon points="${x2},${y2} ${x2-5},${y2+9} ${x2+5},${y2+9}" fill="#7C3AED" opacity="1"/>`;
+    });
+  }
+
   // ── 3. Legend ──
   const ly = H - 20;
   html += `<g font-family="DM Sans,sans-serif" font-size="8">
@@ -580,7 +581,10 @@ function renderContent() {
       }).join('')
     : '<span class="ref-empty">None</span>';
 
-  const reqsHtml = c.reqs.map(r => {
+  // Only show Key Requirements for sub-clauses, not main chapters
+  const isMainChapter = c.subs && c.subs.length > 0;
+
+  const reqsHtml = isMainChapter ? '' : c.reqs.map(r => {
     // Remove all clause number references from requirement text:
     // 1. Leading patterns like "4.4.1 — ", "5.3 — ", "6.2.2 — "
     // 2. Trailing parenthetical refs like "(4.5)", "(see 9.2)"
@@ -619,8 +623,7 @@ function renderContent() {
       </div>
       <div class="cc-art-row"><span class="cc-art">${c.art || ''}</span></div>
       <div class="cc-body">${c.body}</div>
-      <div class="slbl">Key requirements</div>
-      <div class="req-list">${reqsHtml}</div>
+      ${!isMainChapter ? `<div class="slbl">Key requirements</div><div class="req-list">${reqsHtml}</div>` : ''}
       ${subsHtml}
     </div>
     <div class="ref-grid">
