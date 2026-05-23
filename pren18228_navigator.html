@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>prEN 18228:2026 — Risk Management Guidance</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;font-family:'DM Sans',sans-serif;background:#F4F6FB;color:#1a1a2e;overflow:hidden}
+.shell{display:flex;flex-direction:column;height:100vh}
+.nav-th{background:#003399;padding:.8rem 1.4rem;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.nav-th h2{font-size:.85rem;font-weight:600;color:#fff;letter-spacing:.01em}
+.nav-back{background:rgba(255,255,255,.14);color:#FFCC00;border:1px solid rgba(255,204,0,.4);padding:5px 13px;border-radius:20px;cursor:pointer;font-size:11px;font-weight:700;letter-spacing:.02em}
+.nav-back:hover{background:rgba(255,204,0,.16)}
+.body{display:flex;flex:1;min-height:0}
+.map-side{width:33%;flex-shrink:0;background:#fff;border-right:1px solid #E0E4EF;display:flex;flex-direction:column;overflow:hidden}
+.map-header{padding:.75rem .9rem .5rem;border-bottom:1px solid #F0F2F8;flex-shrink:0}
+.map-header h3{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:#8890B0}
+.map-header p{font-size:9px;color:#AAB0C8;margin-top:2px;line-height:1.4}
+.svg-wrap{flex:1;overflow-y:auto;overflow-x:hidden;position:relative}
+#clauseSvg{width:100%;display:block}
+.content-area{flex:1;display:flex;flex-direction:column;min-width:0;min-height:0}
+.clause-scroll{flex:1;padding:1.1rem;overflow-y:auto;background:#F4F6FB}
+.cc-card{background:#fff;border-radius:11px;border:1px solid #E0E4EF;padding:1.25rem;margin-bottom:.7rem;box-shadow:0 1px 4px rgba(0,0,51,.04)}
+.cc-hdr{display:flex;align-items:flex-start;gap:10px;margin-bottom:.7rem}
+.cc-badge{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;border:2px solid transparent}
+.cc-numtag{font-size:9px;font-weight:700;color:#003399;letter-spacing:.05em;text-transform:uppercase;margin-bottom:2px}
+.cc-title{font-family:'DM Serif Display',serif;font-size:.95rem;font-weight:400;color:#1a1a2e;line-height:1.3}
+.cc-art-row{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:.75rem}
+.cc-art{display:inline-block;background:#003399;color:#FFCC00;font-size:9px;padding:2px 9px;border-radius:10px;font-weight:700;letter-spacing:.02em}
+.cc-body{font-size:.82rem;line-height:1.75;color:#4A5068;margin-bottom:.9rem}
+.req-list{display:flex;flex-direction:column;gap:5px;margin-bottom:.9rem}
+.req-item{display:flex;align-items:flex-start;gap:7px;padding:7px 10px;background:#F4F6FB;border-radius:7px;font-size:.79rem;line-height:1.5;color:#1a1a2e;border:1px solid #E8ECF5}
+.req-dot{width:6px;height:6px;border-radius:50%;background:#9333EA;flex-shrink:0;margin-top:5px}
+.slbl{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.45rem;color:#8890B0}
+.ref-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:.75rem}
+.ref-panel{background:#F4F6FB;border-radius:8px;border:1px solid #E0E4EF;padding:9px 11px}
+.ref-panel.full{grid-column:1/-1}
+.rpt{font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:#8890B0;margin-bottom:6px;display:flex;align-items:center;gap:4px}
+.rpt svg{width:10px;height:10px;flex-shrink:0}
+.ref-tag{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:20px;font-size:10px;font-weight:600;cursor:pointer;margin:2px;transition:all .15s;border:1px solid transparent;font-family:'DM Sans',sans-serif}
+.ref-tag.internal{background:#F3E8FF;color:#6B21A8;border-color:#C084FC}
+.ref-tag.internal:hover{background:#7C3AED;color:#fff;border-color:#7C3AED}
+.ref-tag.aiact{background:#EDE9FE;color:#5B21B6;border-color:#C4B5FD;cursor:default}
+.ref-tag.iso{background:#DCFCE7;color:#14532D;border-color:#86EFAC;cursor:default}
+.ref-tag.ext{background:#FEF3C7;color:#92400E;border-color:#FCD34D;cursor:default}
+.ref-empty{font-size:10px;color:#9CA3AF;font-style:italic}
+.foot{padding:.85rem 1.4rem;text-align:center;background:#fff;border-top:1px solid #E0E4EF;flex-shrink:0}
+.foot p{font-size:.7rem;color:#8890B0;margin-bottom:.5rem}
+.crow{display:flex;align-items:center;justify-content:center;gap:7px;flex-wrap:wrap}
+.cl{display:flex;align-items:center;gap:5px;padding:4px 10px;border:1px solid #D8DBE8;border-radius:7px;text-decoration:none;color:#1a1a2e;font-size:.75rem;background:#F4F6FB;transition:all .15s}
+.cl:hover{border-color:#7C3AED;color:#7C3AED;background:#F3E8FF}
+.ci{width:15px;height:15px;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:9px;flex-shrink:0;font-weight:700}
+.li{background:#0A66C2;color:#fff}.ss{background:#FF6719;color:#fff}.ml{background:#7C3AED;color:#fff}
+</style>
+</head>
+<body>
+<div class="shell">
+  <div class="nav-th">
+    <h2>prEN 18228:2026 — Risk Management Guidance</h2>
+    <button class="nav-back" onclick="window.close()">← Back to compliance journey</button>
+  </div>
+  <div class="body">
+    <div class="map-side">
+      <div class="map-header">
+        <h3>Clause navigation map</h3>
+        <p>Click any node to navigate · Connections highlight when selected</p>
+      </div>
+      <div class="svg-wrap"><svg id="clauseSvg" xmlns="http://www.w3.org/2000/svg"></svg></div>
+    </div>
+    <div class="content-area">
+      <div class="clause-scroll" id="clauseContent"></div>
+    </div>
+  </div>
+  <div class="foot">
+    <p>This tool is for informational purposes only. Always consult qualified legal counsel for interpretations of the EU AI Act text.</p>
+    <div class="crow">
+      <a class="cl" href="https://linkedin.com/in/placeholder" target="_blank"><div class="ci li">in</div><span>LinkedIn</span></a>
+      <a class="cl" href="https://substack.com/placeholder" target="_blank"><div class="ci ss">S</div><span>Substack</span></a>
+      <a class="cl" href="mailto:your@email.com"><div class="ci ml">@</div><span>your@email.com</span></a>
+    </div>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════════════════════════════
+// COMPLETE prEN 18228 CLAUSE STRUCTURE
+// ══════════════════════════════════════════════════════════════════
+const CHAPTERS = [
+  { id:'4', num:'4', label:'Requirements for the Risk Management System', short:'RMS Requirements',
+    color:'#6B21A8', bg:'#F3E8FF', border:'#A855F7', art:'Art. 9',
+    body:'',
+    reqs:['Establish and maintain an ongoing risk management process throughout the AI system lifecycle','Document all risk management activities and records in the risk management file','Incorporate the risk management process into product realization processes where applicable','Risk management process applies to all lifecycle stages from inception to retirement'],
+    subs:[
+      { id:'4.1', num:'4.1', label:'Risk management process', art:'Art. 9',
+        body:'The provider shall establish, implement, document and maintain an ongoing risk management process. This process shall apply throughout the lifecycle of the AI system and be documented in the risk management file.',
+        reqs:['Establish an ongoing risk management process covering risk analysis, evaluation, testing, control, residual risk evaluation, review, and pre/post-market activities','Process shall apply throughout the full life cycle of the AI system','Where a documented product realization process exists, incorporate appropriate parts of the risk management process','Document the risk management process in the risk management file'] },
+      { id:'4.2', num:'4.2', label:'Management responsibilities', art:'Art. 9',
+        body:'Top management shall provide evidence of its commitment to the risk management process and review its suitability and effectiveness throughout the AI system lifecycle.',
+        reqs:['Provide resources necessary and adequate to carry out risk management tasks','Assign competent personnel for risk management activities','Oversee the risk management process implementation','Ensure compliance with applicable regulatory requirements','Review the risk management policy and plan periodically for continuing effectiveness'] },
+      { id:'4.3', num:'4.3', label:'Competence of risk management personnel', art:'Art. 9',
+        body:'Personnel responsible for risk management activities shall be competent, based on education, training, skills and experience appropriate to the risk management tasks assigned.',
+        reqs:['Define competence requirements for all risk management roles','Ensure personnel are competent through education, training, skills and experience','Document the evidence of competence of risk management personnel','Assign risk management tasks only to appropriately competent individuals'] },
+      { id:'4.4', num:'4.4', label:'Risk acceptability criteria', art:'Art. 9',
+        body:'The provider shall establish and document criteria for risk acceptability that are used throughout the risk management process to evaluate whether estimated risks are acceptable.',
+        reqs:['Establish risk acceptability criteria for each residual risk and overall residual risk','Criteria shall be determined by reference to the intended purpose and reasonably foreseeable misuse','Establish acceptability criteria even when probability of harm cannot be quantitatively estimated','Apply acceptability criteria consistently throughout the risk management process'] },
+      { id:'4.5', num:'4.5', label:'Risk management plan', art:'Art. 9',
+        body:'The provider shall establish and maintain a risk management plan that documents how the risk management process will be carried out for the AI system.',
+        reqs:['Define the scope of risk management activities for the specific AI system','Assign responsibilities and competences for risk management activities','Specify verification activities and their timing in the AI system lifecycle','Identify criteria and methods for risk acceptability determination','Define schedule for risk management reviews throughout the lifecycle'] },
+      { id:'4.6', num:'4.6', label:'Risk management file', art:'Art. 9, Art. 11',
+        body:'The provider shall establish and maintain a risk management file containing all documentation required by this standard, providing traceability from each identified hazard through the full risk management process.',
+        reqs:['Maintain a risk management file documenting: intended purpose, risk management policy, risk management plan, risk analysis, risk evaluation, testing, risk control, residual risk evaluation, review, and pre/post-market activities','Provide traceability for each identified hazard through all referenced risk management process steps','Risk management file may form part of, or reference, other required documents such as the QMS file','Keep references or pointers to all required documentation to enable timely assembly'] }
+    ]
+  },
+  { id:'5', num:'5', label:'AI System Lifecycle', short:'Lifecycle',
+    color:'#0369A1', bg:'#E0F2FE', border:'#38BDF8', art:'Art. 9',
+    body:'The risk management process shall be applied throughout all stages of the AI system lifecycle. The lifecycle stages relevant for risk management include inception, design and development, verification and validation, deployment, operation and monitoring, and retirement.',
+    reqs:['Apply the risk management process to all relevant AI system lifecycle stages','Adapt the emphasis of each risk management element depending on the specific lifecycle stage','Risk management activities may be performed iteratively or in multiple steps as appropriate','At each lifecycle stage, ensure that risk management outputs feed into the next stage'],
+    subs:[]
+  },
+  { id:'6', num:'6', label:'Risk Analysis', short:'Risk Analysis',
+    color:'#B45309', bg:'#FEF3C7', border:'#F59E0B', art:'Art. 9',
+    body:'Risk analysis consists of risk identification and risk estimation. The provider shall identify characteristics related to risks, known and reasonably foreseeable hazards, and estimate the associated risks. Risk analysis shall cover all relevant AI system characteristics including logging, human factors, user behaviour, unwanted bias, data quality, and accuracy.',
+    reqs:['Conduct risk identification covering intended purpose and reasonably foreseeable misuse','Identify AI system characteristics related to risks including logging, human factors, user behaviour, unwanted bias, data quality, and accuracy','Identify known and reasonably foreseeable hazards, hazardous situations, and risk scenarios','Estimate probability of occurrence of harm and severity for each identified hazard','Document risk analysis activities and results in the risk management file'],
+    subs:[
+      { id:'6.1', num:'6.1', label:'General', art:'Art. 9',
+        body:'Risk analysis shall consist of risk identification and risk estimation. The provider shall analyse risks considering all relevant AI system characteristics.',
+        reqs:['Risk analysis shall consist of risk identification and risk estimation','Analyse risks from: logging and monitoring, human factors, user behaviour, unwanted bias, data quality and governance, and AI system accuracy','Refer to prEN 18229-1, prEN 18229-2, prEN 18282, prEN 18283, prEN 18284, and other relevant standards as applicable','Document: AI system identifier, persons who carried out the analysis, scope and date, techniques and methodologies used'] },
+      { id:'6.2', num:'6.2', label:'Risk identification', art:'Art. 9',
+        body:'The provider shall identify characteristics related to risks, intended purpose, reasonably foreseeable misuse, and all hazards and hazardous situations associated with the AI system.',
+        reqs:['Identify the intended purpose and reasonably foreseeable misuse of the AI system','Identify AI system characteristics related to risks that could contribute to a hazardous situation','Identify known and reasonably foreseeable hazards, risk scenarios, and hazardous situations','Consider fundamental rights hazards including dignity, privacy, non-discrimination, freedom of expression','Consider vulnerable groups and their specific susceptibilities to harm','Document all identified hazards, risk scenarios, and hazardous situations in the risk management file'] },
+      { id:'6.3', num:'6.3', label:'Risk estimation', art:'Art. 9',
+        body:'For each identified hazard and hazardous situation, estimate the probability of occurrence of harm and the severity, using available information or data, considering the AI system\'s intended purpose, reasonably foreseeable misuse, and characteristics.',
+        reqs:['Estimate probability of occurrence of associated harm for each identified hazard and hazardous situation','Estimate severity of harm based on intended purpose, reasonably foreseeable misuse, and state of the art','For hazards where probability cannot be quantitatively estimated, list possible harms and make qualitative probability estimation','Determine groups of persons potentially affected and consider specific vulnerabilities','Document risk estimation results in the risk management file'] }
+    ]
+  },
+  { id:'7', num:'7', label:'Risk Evaluation', short:'Risk Evaluation',
+    color:'#0F766E', bg:'#CCFBF1', border:'#2DD4BF', art:'Art. 9',
+    body:'The provider shall evaluate each estimated risk to determine whether it is acceptable using the criteria established in the risk management plan. If the risk is not acceptable, risk control activities shall be applied. Results of risk evaluation shall be recorded with a breakdown of reasoning for each identified risk.',
+    reqs:['Compare each estimated risk against the risk acceptability criteria established in the risk management plan','If risk is acceptable, no further risk control is required — treat as residual risk','If risk is not acceptable, apply risk control activities to reduce the risk to an acceptable level','Record risk evaluation results with a breakdown of reasoning for each identified risk to health, safety and fundamental rights','Document risk evaluation activities in the risk management file'],
+    subs:[]
+  },
+  { id:'8', num:'8', label:'Testing', short:'Testing',
+    color:'#C2410C', bg:'#FEE2E2', border:'#F87171', art:'Art. 9',
+    body:'Testing is an essential activity to support the risk management process. Testing supports hazard identification, provides objective evidence of residual risk acceptability, and supports post-market monitoring activities. Testing shall be applied at least prior to placing on the market or putting into service.',
+    reqs:['Apply testing to support: hazard identification, objective evidence of residual risk acceptability, and post-market monitoring','Conduct testing at least prior to market placement to identify appropriate risk controls and verify their effectiveness','Conduct testing in accordance with test planning and test monitoring/reporting requirements','Testing results shall be recorded in the risk management file'],
+    subs:[
+      { id:'8.1', num:'8.1', label:'General', art:'Art. 9',
+        body:'Testing shall be applied at least prior to placing on the market or putting into service, to identify appropriate risk control measures and provide objective evidence of their effectiveness.',
+        reqs:['Testing supports: hazard identification, objective evidence of residual risk and overall residual risk acceptability, and post-market monitoring activities','Apply testing at minimum prior to market placement or putting into service','Test to identify appropriate risk control measures and verify their effectiveness','Record all testing activities and results in the risk management file'] },
+      { id:'8.2', num:'8.2', label:'Test planning', art:'Art. 9',
+        body:'The provider shall plan testing activities in accordance with the risk management plan, defining test objectives, scope, methods, acceptance criteria, and responsibilities.',
+        reqs:['Plan testing activities in alignment with the risk management plan','Define test objectives, scope, methods, acceptance criteria, and responsibilities','Plan testing across all relevant lifecycle stages','Ensure test plans address all identified hazards and risk control measures'] },
+      { id:'8.3', num:'8.3', label:'Real-world conditions testing', art:'Art. 9',
+        body:'Real-world conditions testing may be performed to validate the effectiveness of risk control measures. If performed, this testing shall be recorded in the risk management file.',
+        reqs:['Real-world conditions testing may be used to validate the effectiveness of risk control measures','If real-world conditions testing is performed, record results in the risk management file','Use testing results to verify that risk controls reduce risks to acceptable levels','Consider whether testing introduces new hazards or impacts previously estimated risks'] },
+      { id:'8.4', num:'8.4', label:'Test monitoring and reporting', art:'Art. 9',
+        body:'The provider shall monitor testing activities and report results to support the risk management process. Test results shall be documented in the risk management file.',
+        reqs:['Monitor testing activities to ensure they are carried out as planned','Report test results to inform risk control decisions','Document test monitoring and reporting results in the risk management file','Ensure test reports provide sufficient information to support risk management decisions'] }
+    ]
+  },
+  { id:'9', num:'9', label:'Risk Control', short:'Risk Control',
+    color:'#9F1239', bg:'#FFE4E6', border:'#F43F5E', art:'Art. 9',
+    body:'Risk control activities shall be applied when estimated risks are not acceptable. Risk control follows a hierarchy: inherently safe design, protective measures, and information for safety. After implementation, residual risks shall be evaluated and completeness of risk control verified.',
+    reqs:['Apply risk control following the hierarchy: inherently safe design, protective measures, information for safety','Implement and verify risk control measures for each unacceptable risk','Evaluate residual risk after implementation of risk controls','Review effects of risk control measures on previously identified hazards and risks','Verify completeness of risk control — all identified hazards must be addressed'],
+    subs:[
+      { id:'9.1', num:'9.1', label:'Hierarchy of risk control', art:'Art. 9',
+        body:'Risk control shall follow a defined hierarchy: first apply inherently safe design, then protective measures, and finally information for safety. Higher-level controls are preferred over lower-level ones.',
+        reqs:['Apply risk control in hierarchical order: inherently safe design first, then protective measures, then information for safety','Inherently safe design eliminates hazards or reduces risk through design choices','Protective measures reduce risk when inherently safe design is not reasonably practicable','Information for safety (instructions, warnings) is used only when higher-level controls are insufficient','Document the selection and justification of each risk control measure'] },
+      { id:'9.2', num:'9.2', label:'Implementation and verification of risk control measures', art:'Art. 9',
+        body:'The provider shall implement selected risk control measures and verify their effectiveness. After implementation, review whether new hazards are introduced or previously estimated risks are affected.',
+        reqs:['Implement selected risk control measures in the AI system','Verify the effectiveness of each implemented risk control measure','Review effects: check whether new hazards or hazardous situations are introduced by risk controls','Review effects: check whether estimated risks for previously identified hazardous situations are impacted','Estimate and evaluate risks from new hazards or impacted risks, and apply further controls as necessary','Document implementation and verification activities in the risk management file'] },
+      { id:'9.3', num:'9.3', label:'Residual risk evaluation', art:'Art. 9',
+        body:'After implementing and verifying risk control measures, evaluate the residual risk using the risk acceptability criteria. Justify acceptable residual risks taking into account potential adverse impacts on persons.',
+        reqs:['Evaluate residual risk for each hazard after implementation and verification of risk controls','Apply the risk acceptability criteria from the risk management plan','Justify acceptable residual risks taking into account potential adverse impact on persons','Document residual risk evaluation results in the risk management file'] },
+      { id:'9.4', num:'9.4', label:'Completeness of risk control', art:'Art. 9',
+        body:'The provider shall verify that all identified hazards and hazardous situations have been addressed by the risk management process and that residual risks are acceptable.',
+        reqs:['Verify that risk management process has been applied to all identified hazards and hazardous situations','Confirm that all residual risks are acceptable using the defined acceptability criteria','Ensure no hazard has been omitted from the risk control process','Document the completeness verification in the risk management file'] }
+    ]
+  },
+  { id:'10', num:'10', label:'Evaluation of Overall Residual Risk', short:'Overall Residual Risk',
+    color:'#1E40AF', bg:'#DBEAFE', border:'#3B82F6', art:'Art. 9',
+    body:'The provider shall evaluate whether the overall residual risk is acceptable considering all individual residual risks together. If the overall residual risk is acceptable, inform deployers. If not acceptable, the provider must consider additional controls, modify the intended purpose, or not deploy the AI system.',
+    reqs:['Evaluate the overall residual risk considering all individual residual risks in combination','Apply the risk acceptability criteria established in the risk management plan for overall residual risk','If overall residual risk is acceptable: inform deployers of significant residual risks in the accompanying documentation','If overall residual risk is not acceptable: consider additional risk controls, modify intended purpose, or determine not to deploy','Record the results of overall residual risk evaluation in the risk management file'],
+    subs:[]
+  },
+  { id:'11', num:'11', label:'Risk Management Review', short:'RM Review',
+    color:'#065F46', bg:'#D1FAE5', border:'#10B981', art:'Art. 9',
+    body:'The provider shall review the execution of the risk management plan periodically throughout all lifecycle phases and at least prior to market placement. The review shall ensure the risk management plan was appropriately implemented, the overall residual risk is acceptable, and appropriate methods are in place for pre- and post-market information collection.',
+    reqs:['Conduct risk management review periodically throughout the lifecycle and at least prior to market placement','Review shall ensure: risk management plan has been appropriately implemented; overall residual risk is acceptable; appropriate information collection methods are in place','Assign review responsibility to persons with appropriate competence and authority','Obtain top management approval for the risk management review','When a serious incident occurs or is narrowly avoided, decide on necessity of a risk management review','Document all review results and modifications in the risk management file'],
+    subs:[]
+  },
+  { id:'12', num:'12', label:'Pre-market and Post-market Activities', short:'Pre/Post-market',
+    color:'#4338CA', bg:'#E0E7FF', border:'#818CF8', art:'Art. 9, Art. 72',
+    body:'The provider shall collect, review, and act on information from pre-market and post-market activities that is relevant to safety. This includes monitoring field experience, reviewing information collected, and taking actions to update the risk management process.',
+    reqs:['Establish a system for collecting information from pre-market and post-market phases relevant to AI system safety','Review collected information to determine whether it is relevant to safety and triggers a risk management review','Take appropriate actions in response to relevant information including updating the risk management file','Post-market monitoring activities shall be connected to the risk management process','Document pre-market and post-market activities in the risk management file'],
+    subs:[
+      { id:'12.1', num:'12.1', label:'General', art:'Art. 9, Art. 72',
+        body:'The provider shall establish a process for collecting and reviewing information from pre-market and post-market activities relevant to AI system safety throughout the lifecycle.',
+        reqs:['Establish a process for pre-market and post-market information collection and review','Connect pre/post-market activities to the risk management process','Document all pre-market and post-market activities in the risk management file'] },
+      { id:'12.2', num:'12.2', label:'Information collection', art:'Art. 9, Art. 72',
+        body:'The provider shall collect information from pre-market and post-market phases that is relevant to AI system safety, including field experience, incidents, and technical developments.',
+        reqs:['Collect information from pre-market activities relevant to safety','Collect post-market field experience including incidents, near-misses, and safety-relevant observations','Monitor technical developments, standards, and regulatory updates that may affect risk assessment','Document information collection activities and sources'] },
+      { id:'12.3', num:'12.3', label:'Information review', art:'Art. 9, Art. 72',
+        body:'The provider shall review collected information to determine whether it is relevant to AI system safety and whether it triggers a risk management review or other corrective action.',
+        reqs:['Review all collected information to determine relevance to AI system safety','Determine whether collected information requires a risk management review','Assess whether information indicates previously unidentified hazards or changes to risk estimates','Document information review activities and conclusions'] },
+      { id:'12.4', num:'12.4', label:'Actions to take', art:'Art. 9, Art. 72, Art. 73',
+        body:'The provider shall take appropriate actions in response to information reviewed from pre-market and post-market activities. This may include updating the risk management file, implementing additional risk controls, or reporting serious incidents.',
+        reqs:['Take appropriate actions in response to relevant pre/post-market information','Actions may include: updating risk management file, implementing additional risk controls, modifying intended purpose, or withdrawing the AI system','Report serious incidents in accordance with Article 73 mandatory timelines (2/10/15 days)','Document all actions taken and their outcomes in the risk management file'] }
+    ]
+  },
+  { id:'ZA', num:'ZA', label:'Annex ZA — AI Act Mapping', short:'Annex ZA',
+    color:'#374151', bg:'#F1F5F9', border:'#6B7280', art:'Art. 9',
+    body:'Annex ZA maps the normative clauses of prEN 18228 to the essential requirements of Regulation (EU) 2024/1689. The standard addresses Article 9 in its entirety. Compliance with prEN 18228 creates a presumption of conformity with Article 9 once cited in the Official Journal.',
+    reqs:['Art. 9(1) → Cl. 4.1 risk management process establishment and maintenance','Art. 9(2) → Cl. 6 risk identification and estimation throughout the lifecycle','Art. 9(3) → Cl. 6.2 identification of hazards per intended purpose and reasonably foreseeable misuse','Art. 9(4) → Cl. 9 risk control measures and hierarchy','Art. 9(5) → Cl. 8 testing as part of risk management','Art. 9(6) → Cl. 10 evaluation of overall residual risk','Art. 9(7) → Cl. 11 risk management review triggering','Art. 9(8) → Cl. 12 post-market monitoring connection to risk management'],
+    subs:[]
+  }
+];
+
+// Cross-references
+const XREF = {
+  '4':   { out:['5','6','7','8','9','10','11','12'],   in:['ZA'] },
+  '4.1': { out:['4.2','4.5','4.6','6','7','8','9','10','11','12'], in:['4'] },
+  '4.2': { out:['4.3','4.4','4.5'],                   in:['4','4.1'] },
+  '4.3': { out:[],                               in:['4.2'] },
+  '4.4': { out:['4.5','7','10'],                      in:['4.2','7','10'] },
+  '4.5': { out:['4.4','4.6','11'],                    in:['4.1','4.2','4.4'] },
+  '4.6': { out:['4.5','6','7','8','9','10','11','12'], in:['4.1','4.5','6','7','8','9','10','11','12'] },
+  '5':   { out:['4','6'],                             in:['4','6','11'] },
+  '6':   { out:[],               in:[] },
+  '6.1': { out:['6.2','6.3'],                         in:['6'] },
+  '6.2': { out:['4.4','6.1','6.3'],                   in:['6','6.1','ZA'] },
+  '6.3': { out:['6.2','7'],                           in:['6','6.1','6.2'] },
+  '7':   { out:['4.4','6.3','9','4.6'],               in:['6','6.3','ZA'] },
+  '8':   { out:[],         in:[] },
+  '8.1': { out:['8.2','8.3','8.4'],                   in:['8'] },
+  '8.2': { out:['4.5','8.1','8.4'],                   in:['8','8.1'] },
+  '8.3': { out:['4.6','9.2'],                         in:['8','8.1'] },
+  '8.4': { out:['4.6','8.2'],                         in:['8','8.1','8.2'] },
+  '9':   { out:[],       in:[] },
+  '9.1': { out:['9.2'],                               in:['9'] },
+  '9.2': { out:['4.6','8.3','9.3'],                   in:['9','9.1'] },
+  '9.3': { out:['4.4','4.6','10'],                    in:['9','9.2'] },
+  '9.4': { out:['4.6','9.2','9.3'],                   in:['9'] },
+  '10':  { out:['4.4','4.6','9','11'],                in:['9.3','ZA'] },
+  '11':  { out:['4.5','4.6','12'],                    in:['4.5','10','12.3','ZA'] },
+  '12':  { out:['4.6','11'],                          in:['4','ZA'] },
+  '12.1':{ out:['4.1'],                              in:['12'] },
+  '12.2':{ out:['12.1','12.3'],                      in:['12'] },
+  '12.3':{ out:['11','12.2'],                        in:['12','12.2'] },
+  '12.4':{ out:['4.6','11'],                         in:['12','12.3'] },
+  'ZA':  { out:['4','6','7','8','9','10','11','12'],   in:[] }
+};
+
+const EXT_REFS = {
+  '4':   ['EU AI Act Art. 9','prEN 18286 Cl. 8.1 (container)','ISO 31000 (reference)'],
+  '4.1': ['EU AI Act Art. 9(1)','prEN 18286 Cl. 8.1'],
+  '4.2': ['EU AI Act Art. 9(1)'],
+  '4.4': ['EU AI Act Art. 9(4)'],
+  '4.5': ['EU AI Act Art. 9(1)'],
+  '4.6': ['EU AI Act Art. 9','EU AI Act Art. 11','Annex IV format'],
+  '5':   ['EU AI Act Art. 9(2)','ISO/IEC 22989 AI lifecycle'],
+  '6.1': ['EU AI Act Art. 9(2)(3)','prEN 18229-1','prEN 18229-2','prEN 18282','prEN 18283','prEN 18284'],
+  '6.2': ['EU AI Act Art. 9(3)','EU AI Act Art. 9 fundamental rights','prEN 18282 (cybersecurity hazards)','prEN 18283 (bias hazards)'],
+  '6.3': ['EU AI Act Art. 9(2)'],
+  '7':   ['EU AI Act Art. 9(4)'],
+  '8':   ['EU AI Act Art. 9(5)','prEN 18229-2 (accuracy testing)','prEN 18283 (bias testing)','prEN 18284 (data quality testing)'],
+  '8.3': ['CWA 18016:2023 (age appropriate design)'],
+  '9':   ['EU AI Act Art. 9(4)'],
+  '9.1': ['EU AI Act Art. 9(4)'],
+  '10':  ['EU AI Act Art. 9(6)'],
+  '11':  ['EU AI Act Art. 9(7)'],
+  '12':  ['EU AI Act Art. 9(8)','EU AI Act Art. 72','EU AI Act Art. 73'],
+  '12.4':['EU AI Act Art. 73 (2/10/15-day timelines)','EU AI Act Art. 72'],
+  'ZA':  ['EU AI Act Art. 9','Regulation (EU) 2024/1689']
+};
+
+// Flat lookup
+const LOOKUP = {};
+CHAPTERS.forEach(c => {
+  LOOKUP[c.id] = c;
+  c.subs.forEach(s => LOOKUP[s.id] = { ...s, color: c.color, bg: c.bg, border: c.border, parentId: c.id });
+});
+
+let selId = '4';
+
+// ══════════════════════════════════════════════════════════════════
+// SVG GRAPH
+// ══════════════════════════════════════════════════════════════════
+const GUTTER=8, ROW_GAP=10, PAD_X=8, PAD_TOP=20, PAD_BOT=8, SUB_H=34, SUB_W_MIN=44, SUB_GAP=5, CORNER=6, NOSUB_H=34;
+
+function buildGroupLayout(svgW) {
+  const groups = [];
+  const usableW = svgW - GUTTER * 2;
+  CHAPTERS.forEach(c => {
+    if (c.subs.length === 0) {
+      groups.push({ id:c.id, chap:c, noSubs:true, gx:GUTTER, gy:0, gw:usableW, gh:NOSUB_H, subs:[] });
+    } else {
+      const innerW = usableW - PAD_X * 2;
+      const totalGap = SUB_GAP * (c.subs.length - 1);
+      let subW = Math.floor((innerW - totalGap) / c.subs.length);
+      subW = Math.max(subW, SUB_W_MIN);
+      const groupH = PAD_TOP + SUB_H + PAD_BOT;
+      const subs = c.subs.map((s, i) => ({
+        id: s.id, sub: s,
+        sx: GUTTER + PAD_X + i * (subW + SUB_GAP),
+        sy: 0, sw: subW, sh: SUB_H
+      }));
+      groups.push({ id:c.id, chap:c, noSubs:false, gx:GUTTER, gy:0, gw:usableW, gh:groupH, subs });
+    }
+  });
+  let y = GUTTER;
+  groups.forEach(g => {
+    g.gy = y;
+    g.subs.forEach(s => { s.sy = y + PAD_TOP; });
+    g.cx = g.gx + g.gw / 2;
+    g.cy = g.gy + g.gh / 2;
+    y += g.gh + ROW_GAP;
+  });
+  return groups;
+}
+
+function renderSVG() {
+  const svg = document.getElementById('clauseSvg');
+  const wrap = svg.parentElement;
+  const W = Math.max(wrap.clientWidth || 400, 200);
+  const groups = buildGroupLayout(W);
+  const lastG = groups[groups.length - 1];
+  const H = lastG.gy + lastG.gh + GUTTER + 28;
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  svg.setAttribute('height', H);
+
+  const posByID = {};
+  groups.forEach(g => {
+    posByID[g.id] = { cx:g.cx, cy:g.cy, top:g.gy, bot:g.gy+g.gh, left:g.gx, right:g.gx+g.gw };
+    g.subs.forEach(s => {
+      posByID[s.id] = { cx:s.sx+s.sw/2, cy:s.sy+s.sh/2, top:s.sy, bot:s.sy+s.sh, left:s.sx, right:s.sx+s.sw };
+    });
+  });
+
+  const xref = XREF[selId] || { out:[], in:[] };
+  const highlightOut = new Set(xref.out);
+  const highlightIn  = new Set(xref.in);
+
+  let html = '';
+
+  // ── 1. Draw boxes first ──
+  groups.forEach(g => {
+    const c = g.chap;
+    const chapIsSel = selId === c.id;
+    const anySubSel = g.subs.some(s => s.id === selId);
+    const chapIsOut = highlightOut.has(c.id);
+    const anySubOut = g.subs.some(s => highlightOut.has(s.id));
+    const chapIsIn  = highlightIn.has(c.id);
+    const anySubIn  = g.subs.some(s => highlightIn.has(s.id));
+
+    let gFill, gStroke, gSW, gOp;
+    if (chapIsSel)                        { gFill=c.color; gStroke=c.color; gSW=2; gOp=1; }
+    else if (chapIsOut||anySubOut)        { gFill='#EFF6FF'; gStroke='#3B82F6'; gSW=2; gOp=1; }
+    else if (chapIsIn||anySubIn)          { gFill='#F5F3FF'; gStroke='#7C3AED'; gSW=2; gOp=1; }
+    else if (anySubSel)                   { gFill=c.bg; gStroke=c.border; gSW=2; gOp=1; }
+    else                                  { gFill='#FAFBFE'; gStroke='#D8DCE8'; gSW=1.5; gOp=0.7; }
+
+    const labelCol = chapIsSel ? '#fff' : c.color;
+    html += `<rect x="${g.gx}" y="${g.gy}" width="${g.gw}" height="${g.gh}" rx="${CORNER+2}" ry="${CORNER+2}" fill="${gFill}" stroke="${gStroke}" stroke-width="${gSW}" opacity="${gOp}"/>`;
+    html += `<g onclick="selectClause('${c.id}')" style="cursor:pointer">
+      <text x="${g.gx+PAD_X}" y="${g.gy+13}" dominant-baseline="middle"
+        font-size="9" font-weight="${chapIsSel?'700':'600'}" fill="${labelCol}" font-family="DM Sans,sans-serif" opacity="${gOp}">${c.num} · ${c.label}</text>
+    </g>`;
+
+    if (!g.noSubs) {
+      g.subs.forEach(s => {
+        const subIsSel = s.id === selId;
+        const subIsOut = highlightOut.has(s.id);
+        const subIsIn  = highlightIn.has(s.id);
+        let sFill, sStroke, sSW, sOp;
+        if (subIsSel)      { sFill=c.color; sStroke=c.color; sSW=2; sOp=1; }
+        else if (subIsOut) { sFill='#DBEAFE'; sStroke='#3B82F6'; sSW=1.5; sOp=1; }
+        else if (subIsIn)  { sFill='#EDE9FE'; sStroke='#7C3AED'; sSW=1.5; sOp=1; }
+        else               { sFill=c.bg; sStroke=c.border; sSW=1; sOp=0.75; }
+        const sTxtNum   = subIsSel ? '#fff' : c.color;
+        const sTxtTitle = subIsSel ? 'rgba(255,255,255,0.88)' : '#4A5068';
+        const maxCh = Math.max(3, Math.floor((s.sw - 8) / 4.5));
+        const shortT = s.sub.label.length > maxCh ? s.sub.label.substring(0, maxCh-1)+'…' : s.sub.label;
+        html += `<g onclick="selectClause('${s.id}')" style="cursor:pointer">
+          <rect x="${s.sx}" y="${s.sy}" width="${s.sw}" height="${s.sh}" rx="${CORNER}" ry="${CORNER}" fill="${sFill}" stroke="${sStroke}" stroke-width="${sSW}" opacity="${sOp}"/>
+          <text x="${s.sx+s.sw/2}" y="${s.sy+11}" text-anchor="middle" dominant-baseline="middle" font-size="8.5" font-weight="800" fill="${sTxtNum}" font-family="DM Sans,sans-serif" opacity="${sOp}">${s.sub.num}</text>
+          <text x="${s.sx+s.sw/2}" y="${s.sy+23}" text-anchor="middle" dominant-baseline="middle" font-size="6" fill="${sTxtTitle}" font-family="DM Sans,sans-serif" opacity="${sOp}">${shortT}</text>
+        </g>`;
+      });
+    }
+  });
+
+  // ── 2. Connection lines on top ──
+  if (posByID[selId]) {
+    const src = posByID[selId];
+    xref.out.forEach(tid => {
+      if (!posByID[tid]) return;
+      const t = posByID[tid];
+      const x1=src.cx, y1=src.bot, x2=t.cx, y2=t.top, my=(y1+y2)/2;
+      html += `<path d="M${x1},${y1} C${x1},${my} ${x2},${my} ${x2},${y2}"
+        fill="none" stroke="#3B82F6" stroke-width="2.5" stroke-dasharray="5,3" opacity="1"
+        style="filter:drop-shadow(0 0 3px rgba(59,130,246,0.6))">
+        <animate attributeName="stroke-dashoffset" from="0" to="16" dur="0.9s" repeatCount="indefinite"/>
+      </path>
+      <polygon points="${x2},${y2} ${x2-5},${y2-9} ${x2+5},${y2-9}" fill="#3B82F6" opacity="1"/>`;
+    });
+    xref.in.forEach(tid => {
+      if (!posByID[tid]) return;
+      const s = posByID[tid];
+      const x1=s.cx, y1=s.bot, x2=src.cx, y2=src.top, my=(y1+y2)/2;
+      html += `<path d="M${x1},${y1} C${x1},${my} ${x2},${my} ${x2},${y2}"
+        fill="none" stroke="#7C3AED" stroke-width="2.5" stroke-dasharray="5,3" opacity="1"
+        style="filter:drop-shadow(0 0 3px rgba(124,58,237,0.6))">
+        <animate attributeName="stroke-dashoffset" from="16" to="0" dur="0.9s" repeatCount="indefinite"/>
+      </path>
+      <polygon points="${x2},${y2} ${x2-5},${y2+9} ${x2+5},${y2+9}" fill="#7C3AED" opacity="1"/>`;
+    });
+  }
+
+  // ── 3. Legend ──
+  const ly = H - 20;
+  html += `<g font-family="DM Sans,sans-serif" font-size="8">
+    <line x1="${GUTTER}" y1="${ly+3}" x2="${GUTTER+18}" y2="${ly+3}" stroke="#3B82F6" stroke-width="2" stroke-dasharray="4,2"/>
+    <text x="${GUTTER+21}" y="${ly+5}" fill="#3B82F6" font-weight="600">Cites →</text>
+    <line x1="${GUTTER+68}" y1="${ly+3}" x2="${GUTTER+86}" y2="${ly+3}" stroke="#7C3AED" stroke-width="2" stroke-dasharray="4,2"/>
+    <text x="${GUTTER+89}" y="${ly+5}" fill="#7C3AED" font-weight="600">← Cited by</text>
+  </g>`;
+
+  svg.innerHTML = html;
+}
+
+function selectClause(id) {
+  selId = id;
+  renderSVG();
+  renderContent();
+}
+
+// ══════════════════════════════════════════════════════════════════
+// CLAUSE CONTENT
+// ══════════════════════════════════════════════════════════════════
+function renderContent() {
+  const c = LOOKUP[selId];
+  if (!c) return;
+
+  const xref = XREF[selId] || { out:[], in:[] };
+  const exts = EXT_REFS[selId] || [];
+  const isMainChapter = c.subs && c.subs.length > 0;
+
+  const outHtml = xref.out.length
+    ? xref.out.map(id => `<span class="ref-tag internal" onclick="selectClause('${id}')">§${id} →</span>`).join('')
+    : '<span class="ref-empty">None within prEN 18228</span>';
+
+  const inHtml = xref.in.length
+    ? xref.in.map(id => `<span class="ref-tag internal" onclick="selectClause('${id}')">← §${id}</span>`).join('')
+    : '<span class="ref-empty">No other clauses cite this</span>';
+
+  const extHtml = exts.length
+    ? exts.map(ref => {
+        let cls = 'ext';
+        if (ref.startsWith('EU AI Act')||ref.startsWith('Art.')||ref.startsWith('Annex')||ref.startsWith('Regulation')) cls='aiact';
+        else if (ref.startsWith('ISO')||ref.startsWith('prEN')||ref.startsWith('IEC')||ref.startsWith('CWA')) cls='iso';
+        return `<span class="ref-tag ${cls}">${ref}</span>`;
+      }).join('')
+    : '<span class="ref-empty">None</span>';
+
+  // Clean clause numbers from reqs
+  const reqsHtml = isMainChapter ? '' : c.reqs.map(r => {
+    let clean = r
+      .replace(/^\d+\.\d+(\.\d+)?\s*[—–-]+\s*/g, '')
+      .replace(/\s*\(see\s+[\d.]+\)/gi, '')
+      .replace(/\s*\([\d.]+\)/g, '')
+      .replace(/,?\s+(see\s+)?[\d]+\.[\d]+(\.\d+)?\b/g, '')
+      .replace(/\s+(identified|defined|described|referenced|required|referred to)\s+in\s+[\d.]+/gi, '')
+      .replace(/\s*\(?\s*see\s+[\d.]+\s*\)?/gi, '')
+      .trim().replace(/[,;:]\s*$/, '').trim();
+    return `<div class="req-item"><div class="req-dot"></div><span>${clean}</span></div>`;
+  }).join('');
+
+  let subsHtml = '';
+  if (c.subs && c.subs.length) {
+    subsHtml = `<div class="slbl" style="margin-top:.85rem">Sub-clauses in this chapter</div>
+      <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:.85rem">
+        ${c.subs.map(s => `<span class="ref-tag internal" onclick="selectClause('${s.id}')">§${s.num} ${s.label}</span>`).join('')}
+      </div>`;
+  }
+
+  document.getElementById('clauseContent').innerHTML = `
+    <div class="cc-card">
+      <div class="cc-hdr">
+        <div class="cc-badge" style="background:${c.bg};border-color:${c.border};color:${c.color}">${c.num}</div>
+        <div>
+          <div class="cc-numtag">prEN 18228:2026 · Clause ${c.num}</div>
+          <div class="cc-title">${c.label}</div>
+        </div>
+      </div>
+      <div class="cc-art-row"><span class="cc-art">${c.art||''}</span></div>
+      <div class="cc-body">${c.body}</div>
+      ${!isMainChapter ? `<div class="slbl">Key requirements</div><div class="req-list">${reqsHtml}</div>` : ''}
+      ${subsHtml}
+    </div>
+    <div class="ref-grid">
+      <div class="ref-panel">
+        <div class="rpt">
+          <svg viewBox="0 0 12 12" fill="none"><path d="M6 1L11 6L6 11" stroke="#3B82F6" stroke-width="1.5" stroke-linecap="round"/><path d="M1 6H11" stroke="#3B82F6" stroke-width="1.5" stroke-linecap="round"/></svg>
+          References (this clause cites)
+        </div>
+        <div>${outHtml}</div>
+      </div>
+      <div class="ref-panel">
+        <div class="rpt">
+          <svg viewBox="0 0 12 12" fill="none"><path d="M6 11L1 6L6 1" stroke="#7C3AED" stroke-width="1.5" stroke-linecap="round"/><path d="M11 6H1" stroke="#7C3AED" stroke-width="1.5" stroke-linecap="round"/></svg>
+          Referenced by
+        </div>
+        <div>${inHtml}</div>
+      </div>
+      <div class="ref-panel full">
+        <div class="rpt">
+          <svg viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="#D97706" stroke-width="1.5"/><path d="M6 4V6.5" stroke="#D97706" stroke-width="1.5" stroke-linecap="round"/><circle cx="6" cy="8.5" r=".75" fill="#D97706"/></svg>
+          External standards &amp; legislation
+        </div>
+        <div>${extHtml}</div>
+      </div>
+    </div>`;
+}
+
+window.addEventListener('resize', renderSVG);
+renderSVG();
+renderContent();
+</script>
+</body>
+</html>
